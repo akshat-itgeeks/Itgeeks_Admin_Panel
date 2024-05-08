@@ -11,20 +11,20 @@ function Login(props) {
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('')
 
-    ///////////// defining initialValues for form ///////////////
+    /* defining initialValues for form */
     const [initialValues, setInitialValues] = useState({
         email: '',
         password: '',
         rememberMe: false
     });
 
-    ////////// validation using Yup /////////////
+    /* validation using Yup */
     const validationSchema = yup.object().shape({
         email: yup.string().trim().required("email is required").email(),
         password: yup.string().trim().required("password is required").min(5, "enter minimum 5 character"),
     });
 
-    /////////////// Handle submit form data ///////////////
+    /* Handle submit form data */
     const handleSubmit = (data) => {
         localStorage.setItem('IsUserLogged', JSON.stringify(data))
         setUserData(data)
@@ -36,7 +36,7 @@ function Login(props) {
     };
     let localData = JSON.parse(localStorage.getItem('IsUserLogged'))
 
-    /////////// if user is already logged in will redirect to dashboard //////////
+    /* if user is already logged in will redirect to dashboard */
     useEffect(() => {
         if (localData || localData != null) {
             auth(true)

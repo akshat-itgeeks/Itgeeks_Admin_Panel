@@ -9,26 +9,26 @@ function ForgetPassword() {
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('')
 
-    ////////// form initialValues ////////////
+    /* form initialValues */
     const [initialValues, setInitialValues] = useState({
         password: '',
         confirmPassword: '',
     });
 
-    ////////// form Validation using Yup //////////
+    /* form Validation using Yup */
     const validationSchema = yup.object().shape({
         password: yup.string().trim().required("password is required").min(5, "enter minimum 5 character"),
         confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim().required("confirm password is required").min(5, "enter minimum 5 character"),
     });
 
-    /////////// handling form submit ///////////
+    /* handling form submit */
     const handleSubmit = (data) => {
         setUserData(data)
         navigate('/')
     };
     let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
 
-    /////////// if user already logged in will be redirect to dashboard //////////////
+    /////////// if user already logged in will be redirect to dashboard */
     useEffect(()=>
     {
         if(localData || localData !=null  )
