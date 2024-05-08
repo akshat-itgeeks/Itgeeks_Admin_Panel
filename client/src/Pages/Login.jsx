@@ -85,7 +85,7 @@ function Login(props) {
 
                             <div className=' w-1/2  gap-1 flex flex-col'>
 
-                                <button type='submit' className=' mt-1 border-none outline-none bg-slate-400 rounded px-4 py-2'>LOGIN</button>
+                                <button type='submit' className=' mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'>LOGIN</button>
                             </div>
                             <div className=' w-full flex  justify-end flex-col items-center  gap-1'>
                                 <span onClick={() => navigate('/forgetPassword')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>

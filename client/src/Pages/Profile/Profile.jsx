@@ -110,7 +110,7 @@ function Profile() {
                 />
               </div>
 
-              <button type='submit' className=' bg-slate-300 rounded py-2 px-5 '>Update </button>
+              <button type='submit' className=' hover:opacity-80 bg-slate-400 rounded py-2 px-5 '>Update </button>
             </div>
           </Form>
 

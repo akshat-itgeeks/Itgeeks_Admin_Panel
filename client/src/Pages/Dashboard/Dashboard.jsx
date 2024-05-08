@@ -37,6 +37,8 @@ function Dashboard() {
           setToggleProfile(!ToggleProfile)
         }
 
+        let pathName= (window.location.pathname.split('/'))
+        let ActivePath=(pathName[pathName.length-1])
   return (
     <div>
       <div className=' h-11 transition-all duration-500 relative px-2 py-0 flex justify-end items-center  w-full bg-slate-700'>
@@ -58,19 +60,18 @@ function Dashboard() {
 
 
       </div>
-      <div className=' h-[calc(100vh-45px)] py-0 pl-0  flex gap-1'>
-        <div className=' h-full   flex'>
-
-          <div className=' myScrollBar overflow-y-scroll    bg-slate-100 rounded shadow-sm  border h-full px-3 py-4 flex flex-col gap-2'>
-            {/* <span className=' font-semibold text-[18px] flex items-center justify-center px-2 pb-3'> {sideBarToggle?<img src={CompanyLogo} className=' w-[80px] h-[70px]' alt="" />:''} </span> */}
-            <span className={` ${activeTab ==='home'?" bg-slate-600  text-white":" bg-white"} cursor-pointer  border h-16 rounded  py-2 flex gap-2 items-center px-3 `} onClick={() => {navigate(''); setActiveTab('home') }}> <IoHomeOutline />{sideBarToggle?<span className='  m-0 p-0'>Home</span>:''} </span>
-            <span onClick={()=>{navigate('profile');setActiveTab('profile')}} className={` ${activeTab ==='profile'?" bg-slate-600 px-3 h-16 text-white":" bg-white"} cursor-pointer  border rounded  px-3 py-2 flex gap-2 items-center ${sideBarToggle?"px-36":"px-1"} `}> <FaRegUser />{sideBarToggle?"Profile":""}</span>
-            <span className={` ${activeTab ==='menu'?" bg-slate-600  text-white":" bg-white"} cursor-pointer  border rounded px-3 py-2 h-16 flex gap-2 items-center ${sideBarToggle?"px-36":"px-1"}`} onClick={() => {navigate('menu');setActiveTab('menu')}}><IoMenu/> {sideBarToggle?"Menu":""}  </span>
+      <div className=' h-[calc(100vh-45px)] bg-slate-100 py-0 pl-0  flex gap-1'>
+        <div className={` transition-all ${sideBarToggle?"w-[220px] ":" w-[120px]"} duration-300 h-full  flex`}>
+          <div className=' transition-all duration-500 myScrollBar overflow-y-scroll    bg-slate-100 rounded shadow-sm  border h-full px-4 py-4 flex flex-col gap-2'>
+            <span className=' font-semibold text-[18px] transition-all duration-500 flex items-center justify-center px-0 pb-1'> <img src={CompanyLogo} className={`${sideBarToggle?" transition-all duration-200 w-[80px] h-[70px]":" transition-all duration-200 w-[46px] h-[46px]"}`} alt="" /> </span>
+            <span className={` ${ActivePath ==='dashboard'?" bg-slate-600  text-white":" bg-white"} cursor-pointer  border h-16 rounded  py-2 flex gap-2 items-center px-3 `} onClick={() => {navigate('') }}> <IoHomeOutline />{sideBarToggle?<span className='  m-0 p-0'>Home</span>:''} </span>
+            <span onClick={()=>{navigate('profile')}} className={` ${ActivePath ==='profile'?" bg-slate-600 px-3 h-16 text-white":" bg-white"} cursor-pointer  border rounded  px-3 py-2 flex gap-2 items-center ${sideBarToggle?"px-36":"px-1"} `}> <FaRegUser />{sideBarToggle?"Profile":""}</span>
+            <span className={` ${ActivePath ==='menu'?" bg-slate-600  text-white":" bg-white"} cursor-pointer  border rounded px-3 py-2 h-16 flex gap-2 items-center ${sideBarToggle?"px-36":"px-1"}`} onClick={() => {navigate('menu')}}><IoMenu/> {sideBarToggle?"Menu":""}  </span>
             {
               Array(12).fill(0).map((itm)=>
               {
                 return <>
-            <span className={` cursor-pointer  h-16 border rounded ${sideBarToggle?" w-36":" px-1"} px-3 py-2 flex gap-1 items-center bg-white`} onClick={() => navigate('')}> <IoHomeOutline />{sideBarToggle?"Home":""}</span>
+            <span className={` transition-all duration-500 cursor-pointer  h-16 border rounded ${sideBarToggle?" w-36":" px-1"} px-3 py-2 flex gap-2 items-center bg-white`} onClick={() => navigate('')}> <IoHomeOutline />{sideBarToggle?"Home":""}</span>
                 
                 </>
               })
