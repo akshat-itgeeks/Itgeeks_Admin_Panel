@@ -10,7 +10,9 @@ function Profile() {
   let userData = JSON.parse(localStorage.getItem('IsUserLogged'))
   let userEmail = (userData?.email.split('@'))
   let userName = userEmail[0];
-  const navigate= useNavigate()
+  const navigate= useNavigate();
+
+  /* initial values for profile form  */
   const [initialValues, setInitialValues] = useState(
     {
 
@@ -32,6 +34,7 @@ function Profile() {
   //   )
   // },[userData])
 
+  /* form validation using yup  */ 
   const validationSchema = yup.object().shape(
     {
       name: yup.string().required('name is required').trim(),
@@ -46,6 +49,8 @@ function Profile() {
       confirmPassword: yup.string().required('confirmPassword is required').trim().min(5, 'minimum 5 characters')
     }
   )
+
+  /* handle submit */
   const handleSubmit = (data) => {
     data.password = data.confirmPassword
     console.log(data)
@@ -110,7 +115,7 @@ function Profile() {
                 />
               </div>
 
-              <button type='submit' className=' hover:opacity-80 bg-slate-400 rounded py-2 px-5 '>Update </button>
+              <button type='submit' className=' hover:opacity-80 bg-slate-700 text-white rounded py-2 px-5 '>Update </button>
             </div>
           </Form>
 
