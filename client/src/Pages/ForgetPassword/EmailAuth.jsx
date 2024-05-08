@@ -9,17 +9,17 @@ function EmailAuth() {
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('')
 
-    ////////// form initialValues ////////////
+    /* form initialValues */
     const [initialValues, setInitialValues] = useState({
         email:''
     });
 
-    ////////// form Validation using Yup //////////
+    /* form Validation using Yup */
     const validationSchema = yup.object().shape({
         email: yup.string().trim().required("email is required").email(),
     });
 
-    /////////// handling form submit ///////////
+    /* handling form submit */
     const handleSubmit = (data) => {
         
         setUserData(data)
@@ -27,7 +27,7 @@ function EmailAuth() {
     };
 
     
-    /////////// if user already logged in will be redirect to dashboard //////////////
+    /*if user already logged in will be redirect to dashboard */
     let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
     useEffect(() => {
         if (localData || localData != null) {
