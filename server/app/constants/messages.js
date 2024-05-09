@@ -4,5 +4,6 @@ module.exports.SuccessMessage = {
 };
 //Error messages
 module.exports.ErrorMessage = {
-  INTERNAL_SERVER_ERROR: "Internal Server Error",
+  INTERNAL_SERVER_ERROR: "Internal Server Error.",
+  INVALID_CREDENTIAL: "Invalid Credential."
 };

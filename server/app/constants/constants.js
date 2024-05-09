@@ -1,4 +1,5 @@
 
-module.exports.DEFAULT_WELCOME_NOTIFICATION = {
-   
+module.exports.AdminDetails = {
+    email: "Admin@123.com",
+    password: "12345"
 };

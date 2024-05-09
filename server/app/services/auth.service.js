@@ -1,5 +1,9 @@
+const { AdminDetails } = require("../constants/constants");
 
+// login service 
 exports.login = async (details) => {
-    console.log(details,'-----------------------login api');
-    return true;
+    if (details.email === AdminDetails.email && details.password === AdminDetails.password) {
+        return true;
+    }
+    return false;
 }  

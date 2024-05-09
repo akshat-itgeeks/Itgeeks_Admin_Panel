@@ -9,6 +9,9 @@ exports.login = async (req, res) => {
     try {
         const details = req.body;
         const result = await service.login(details);
+        if (!result) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.INVALID_CREDENTIAL);
+        }
         return sendResponse(res, statusCode.OK, true, SuccessMessage.LOGIN, result);
     } catch (error) {
         console.error('Error in login api : ', error);
