@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+require("dotenv").config({ path: '../.env' });
 const db = require("./app/models");
 const routes = require("./app/routes");
 
@@ -33,8 +33,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to itgeeks admin panel." });
 });
 
-app.use("/test", routes);
-
+app.use(process.env.BASE_URL, routes);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

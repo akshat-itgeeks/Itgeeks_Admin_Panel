@@ -9,3 +9,12 @@ exports.login = async (req, res, next) => {
         next();
     }
 };
+
+exports.register = async (req, res, next) => {
+    const { error } = schema.registerSchema.validate(req.body);
+    if (error) {
+        res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
+    } else {
+        next();
+    }
+};
