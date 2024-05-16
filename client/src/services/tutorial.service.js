@@ -4,30 +4,34 @@ class TutorialDataService {
   getAll() {
     return http.get("/tutorials");
   }
-
-  get(id) {
-    return http.get(`/tutorials/${id}`);
+  login(data)
+  {
+    return http.post('/auth/login',data)
   }
 
-  create(data) {
-    return http.post("/tutorials", data);
-  }
+  // get(id) {
+  //   return http.get(`/tutorials/${id}`);
+  // }
 
-  update(id, data) {
-    return http.put(`/tutorials/${id}`, data);
-  }
+  // create(data) {
+  //   return http.post("/tutorials", data);
+  // }
 
-  delete(id) {
-    return http.delete(`/tutorials/${id}`);
-  }
+  // update(id, data) {
+  //   return http.put(`/tutorials/${id}`, data);
+  // }
 
-  deleteAll() {
-    return http.delete(`/tutorials`);
-  }
+  // delete(id) {
+  //   return http.delete(`/tutorials/${id}`);
+  // }
 
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
-  }
+  // deleteAll() {
+  //   return http.delete(`/tutorials`);
+  // }
+
+  // findByTitle(title) {
+  //   return http.get(`/tutorials?title=${title}`);
+  // }
 }
 
 export default new TutorialDataService();

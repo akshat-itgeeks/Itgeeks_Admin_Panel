@@ -5,17 +5,16 @@ function Home() {
 
   ////////// Dashboard top Cards Data ///////////
   const CardData = [
-    { name: "Total Tutorials", value: "22" },
-    { name: "Total Product", value: "14" },
-    { name: "Total Warehouses", value: "14" },
-    { name: "Total Income", value: "$211" },
+    { name: "Total Tutorials", value: 22 },
+    { name: "Total Product", value: 14 },
+    { name: "Total Warehouses", value: 14},
+    { name: "Total Income", value: 11 },
   ]
 
   //////////// Donut Chart Data //////////////
   const ChartData = {
     options: { labels: ['Team 1', 'Team 2', 'Team 3', 'Team 4'] },
-    series: [22, 35, 12, 17],
-    labels: ['Ae', 'Be', 'Ce', 'De']
+    series: CardData.map((itm)=> {return itm.value}),
 
   }
 
@@ -23,7 +22,7 @@ function Home() {
   const ColumnChartData = {
     series: [{
       name: 'Margin',
-      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, ]
     }],
     options: {
       chart: {
@@ -51,7 +50,7 @@ function Home() {
       },
 
       xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
         position: 'top',
         axisBorder: {
           show: false
@@ -136,11 +135,11 @@ function Home() {
     { name: 'Jay', email: 'jay@gmail.com', address: '99 gomti nagar', number: '9798987698' },
   ]
   return (
-    <div className=' flex flex-col gap-8 overflow-y-scroll scroll-m-1 py-4 px-4 bg-slate-100 h-full w-full'>
+    <div className=' flex flex-col gap-8 overflow-y-scroll scroll-m-1 py-4 px-4 bg-white h-full w-full'>
       <div className=' pt-3 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-8 gap-y-3'>
         {
           CardData.map((itm, indx) => {
-            return <div key={indx} className=' rounded-sm shadow-md hover:shadow-xl transition-all duration-200 h-18 items-center flex-col gap-1 justify-center w-full flex bg-white p-2'>
+            return <div key={indx} className=' rounded-md border   hover:shadow-lg transition-all duration-200 h-18 items-center flex-col gap-1 justify-center w-full flex bg-slate-50 p-2'>
               <span className=' font-semibold  text-[20px]'>{itm.name}</span>
               <span className=' font-semibold text-[18px]'>{itm.value}</span>
             </div>

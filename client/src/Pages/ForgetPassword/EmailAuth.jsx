@@ -28,12 +28,12 @@ function EmailAuth() {
 
     
     /*if user already logged in will be redirect to dashboard */
-    let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
-    useEffect(() => {
-        if (localData || localData != null) {
-            navigate('/dashboard')
-        }
-    }, [localData])
+    // let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
+    // useEffect(() => {
+    //     if (localData || localData != null) {
+    //         navigate('/dashboard')
+    //     }
+    // }, [localData])
 
     return (
         <div className='h-[100vh] flex w-full items-center justify-center'>
