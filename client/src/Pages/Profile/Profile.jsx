@@ -8,10 +8,10 @@ import { FaEdit, FaUser } from 'react-icons/fa';
 
 function Profile() {
 
-  let userData = JSON.parse(localStorage.getItem('IsUserLogged'))
-  const [userProfileData, setUserProfileData] = useState(userData?.userProfile)
-  let userEmail = (userData?.email.split('@'))
-  let userName = userEmail[0];
+  // let userData = JSON.parse(localStorage.getItem('IsUserLogged'))
+  const [userProfileData, setUserProfileData] = useState()
+  let userEmail = (userProfileData?.email?.split('@'))
+  // let userName = userEmail[0];
   const navigate = useNavigate();
 
 
@@ -20,12 +20,12 @@ function Profile() {
   const initialValues =
   {
 
-    name: userData?.name || '',
-    email: userData?.email || '',
-    rememberMe: userData?.rememberMe || false,
+    name: userProfileData?.name || '',
+    email: userProfileData?.email || '',
+    rememberMe: userProfileData?.rememberMe || false,
     password: '',
     confirmPassword: '',
-    userProfile: userData?.userProfile
+    userProfile: userProfileData?.userProfile
   }
 
 
@@ -49,7 +49,7 @@ function Profile() {
         .required('password is required')
         .trim()
         .test('password-match', 'Password is wrong', function (value) {
-          return value === userData.password;
+          return value === userProfileData?.password;
         }),
       confirmPassword: yup.string().required('confirmPassword is required').trim().min(5, 'minimum 5 characters')
     }
@@ -114,7 +114,7 @@ function Profile() {
             <input onInput={(e) => handleProfileImage(e)} accept='image/*' type="file" name='profileImg' id='profileImg' className=' hidden w-0' />
             <label htmlFor='profileImg' className=' self-end pb-2'><FaEdit /></label>
           </div>
-          <span className=' font-semibold text-[32px]  capitalize'>Welcome, {userName} !</span>
+          <span className=' font-semibold text-[32px]  capitalize'>Welcome, Admin !</span>
         </div>
         <Formik
           enableReinitialize={true}

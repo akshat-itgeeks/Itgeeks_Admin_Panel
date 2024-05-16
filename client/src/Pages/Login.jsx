@@ -32,7 +32,7 @@ function Login(props) {
     /* validation using Yup */
     const validationSchema = yup.object().shape({
         email: yup.string().trim().required("email is required").email(),
-        password: yup.string().trim().required("password is required").min(5, "enter minimum 5 character"),
+        password: yup.string().trim().required("password is required").min(6, "enter minimum 6 character"),
     });
 
     /* Handle submit form data */
@@ -47,6 +47,7 @@ function Login(props) {
                 if (res.status === 200) {
                     setLoading(false)
                     Cookies.set("AuthLogin", `userActive`, { expires: 1, path: "/" });
+                    Cookies.set("isLogged", `logged`);
                     Dispatch(setLoginData(data))
                     // localStorage.setItem('IsUserLogged', JSON.stringify(data))
                     // toast.success("Login Successfull")
@@ -77,6 +78,14 @@ function Login(props) {
             navigate('/dashboard')
         }
     }, [userToken])
+    // const userLogin = Cookies.get("isLogged");
+    // console.log(userLogin)
+    // useEffect(() => {
+    //     if (userLogin || userLogin != null) {
+    //         auth(true)
+    //         navigate('/dashboard')
+    //     }
+    // }, [userLogin])
 
     return (
         <div className='h-[100vh] bg-slate-50 flex w-full items-center justify-center'>

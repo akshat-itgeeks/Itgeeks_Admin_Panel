@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import '../pages.css'
 import toast from 'react-hot-toast';
-import { FaRegUser, FaToggleOn } from "react-icons/fa";
+import { FaRegUser, FaShoppingCart, FaToggleOn } from "react-icons/fa";
 import { IoHomeOutline, IoMenu } from "react-icons/io5";
 import { IoBarChart } from "react-icons/io5";
 import { RiLogoutBoxLine } from "react-icons/ri";
@@ -11,6 +11,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Cookies from 'js-cookie'
 import { useSelector } from 'react-redux';
+import { FiShoppingCart } from "react-icons/fi";
 import { useEffect } from 'react';
 
 function Dashboard() {
@@ -18,19 +19,18 @@ function Dashboard() {
   const LoginData = useSelector(state => state.loginSlice.data)
 
   console.log(LoginData)
-  window.addEventListener("beforeunload", function (e) {
-    if (LoginData?.rememberMe === true) {
-      return
-    }
-    else if (LoginData?.rememberMe === false) {
+  // window.addEventListener("beforeunload", function (e) {
+  //   if (LoginData?.rememberMe === true) {
+  //     return
+  //   }
+  //   else if (LoginData?.rememberMe === false) {
       
-       Cookies.remove("AuthLogin");
-      }
+  //      Cookies.remove("AuthLogin");
+  //     }
      
-    }
+  //   }
    
-
-  );
+  // );
 
 
   const navigate = useNavigate();
@@ -42,6 +42,7 @@ function Dashboard() {
   const handleLogout = () => {
     // localStorage.removeItem('IsUserLogged')
     Cookies.remove("AuthLogin");
+    Cookies.remove("isLogged");
 
     setTimeout(() => {
 
@@ -93,7 +94,7 @@ function Dashboard() {
 
       </div>
       <div className=' h-[calc(100vh-45px)] w-full py-0 pl-0  flex gap-0'>
-        <div className={`  h-full   flex ${sideBarToggle ? "w-[225px] " : " w-[115px]"}`}>
+        <div className={`  h-full   flex ${sideBarToggle ? "w-[245px] " : " w-[115px]"}`}>
           <div className='  w-auto    bg-slate-100  shadow-sm border-r-2 border-slate-300   h-full px-3 py-2 flex flex-col gap-2'>
             <span onClick={() => handletoggle()} className={` self-end pb-2 cursor-pointer text-black ${sideBarToggle ? "px-0" : "px-3"} `}>
               {
@@ -109,14 +110,7 @@ function Dashboard() {
             <span onClick={() => { navigate('profile') }} className={` px-4 ${ActivePath.includes('profile') ? " bg-slate-600 px-4  text-white" : " bg-white"} cursor-pointer  border rounded  px-3 py-2 flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"} `}> <FaRegUser />{sideBarToggle ? "Profile" : ""}</span>
             <span className={`  ${ActivePath.includes('menu') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('menu') }}><IoMenu /> {sideBarToggle ? "Menu" : ""}  </span>
             <span className={`  ${ActivePath.includes('customers') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('customers') }}><IoMenu /> {sideBarToggle ? "Customers" : ""}  </span>
-            {
-              Array(2).fill(0).map((itm, indx) => {
-                return <>
-                  <span key={indx} className={` cursor-pointer    border rounded ${sideBarToggle ? " w-40" : " w-18"} px-4 py-2 flex gap-2 items-center bg-white`} onClick={() => navigate('')}> <IoHomeOutline />{sideBarToggle ? "Home" : ""}</span>
-
-                </>
-              })
-            }
+            <span className={`  ${ActivePath.includes('orders') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('draft-orders') }}><FiShoppingCart/> {sideBarToggle ? "Draft Orders" : ""}  </span>
           </div>
         </div>
         <div className=' w-full'>
