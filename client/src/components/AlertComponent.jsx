@@ -32,24 +32,5 @@ function AlertComponent(
         }
     });
 }
-// confirmAlert({
-//       title: 'Delete customer ',
-//       message: 'Are you sure to Delete ?',
-//       buttons: [
-//         {
-//           label: 'Yes',
-//           onClick: handleDeleteYes()
-//         },
-//         {
-//           label: 'No',
-//           onClick: () => {}
-//         }
-//       ]
-//     });
-//   };
-
-
-
-
 
 export default AlertComponent

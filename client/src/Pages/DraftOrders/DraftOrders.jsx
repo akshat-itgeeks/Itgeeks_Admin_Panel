@@ -9,6 +9,8 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { IoMdEye } from "react-icons/io";
 import AlertComponent from '../../components/AlertComponent';
 import {toast} from 'react-hot-toast'
+import DialogComponent from '../../components/DialogComponent';
+import OrderView from './OrderView/OrderView';
 
 const UserData = [
     {
@@ -91,6 +93,8 @@ function DraftOrders() {
     const [actionIndex, setActionIndex] = useState([])
     const [selectedIndex, setSelectedIndex] = useState()
 
+    /*  States for handling view */
+    const [viewOpen,setViewOpen]= useState(false)
 
     useEffect(() => {
 
@@ -109,6 +113,8 @@ function DraftOrders() {
         setcurrentPage(value)
     }
 
+    /*  functions for handling actions  */
+
     const handleActions = (indx) => {
         let itm = [actionIndex];
         setSelectedIndex(indx)
@@ -124,6 +130,8 @@ function DraftOrders() {
         setActionIndex(itm)
     }
 
+    /*  functions for handling delete  */
+
     const handleDeleteYes=()=>
         {
           setTimeout(() => {
@@ -137,6 +145,10 @@ function DraftOrders() {
             AlertComponent({handleDeleteYes})
         }
 
+    const handleView=()=>
+        {
+            setViewOpen(!viewOpen)
+        }
 
     return (
         <div className='  bg-white flex py-6   px-6 mt-0   overflow-y-scroll  gap-4 flex-col  w-full h-full '>
@@ -176,7 +188,7 @@ function DraftOrders() {
                                                         <>  <span className=' select-none rounded-full lg:right-[80px] w-[130px] divide-x-2 2xl:right-[100px]  gap-1  py-1 px-2 shadow  bottom-0 bg-white absolute flex  items-center justify-between'>
                                                             <span  className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17}/></span>
                                                             <span onClick={()=>handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16}/></span>
-                                                            <span className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17}/></span>
+                                                            <span onClick={()=>handleView()} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17}/></span>
                                                         </span>
                                                         </>
                                                         : ""
@@ -186,6 +198,9 @@ function DraftOrders() {
                                     })
                                 }
                             </tbody>
+                            <DialogComponent open={viewOpen} maxWidth={'xl'}>
+                                <OrderView Id={selectedIndex} onclose={handleView}/>
+                            </DialogComponent>
                         </table>
                     </div>
                     <div className=' py-1 self-end'>
