@@ -20,11 +20,11 @@ function AlertComponent(
                                     handleDeleteYes();
                                     onClose();
                                 }}
-                                className=' py-[3px] px-3 bg-slate-500 rounded hover:opacity-75 text-white'
+                                className=' py-[3px] px-3 bg-slate-600 rounded hover:opacity-75 text-[14px] text-white'
                             >
                                 Yes 
                             </button>
-                            <button onClick={onClose}  className=' py-[3px] px-3 bg-slate-500 rounded text-white hover:opacity-75'>No</button>
+                            <button onClick={onClose}  className=' py-[3px] px-3 bg-slate-600 text-[14px] rounded text-white hover:opacity-75'>No</button>
                         </div>
                     </div>
                 </div>
