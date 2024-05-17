@@ -8,15 +8,16 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoMdEye } from "react-icons/io";
 import AlertComponent from '../../components/AlertComponent';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import DialogComponent from '../../components/DialogComponent';
 import OrderView from './OrderView/OrderView';
+import MobileTabel from '../../components/MobileTable';
 
 const UserData = [
     {
         sNo: '1',
         name: 'Akshat',
-        price: '200',
+        price: '500',
         email: 'akshat@gmail.com',
         status: 'Active',
     },
@@ -25,12 +26,12 @@ const UserData = [
         name: 'Kumkum',
         price: '200',
         email: 'akshat@gmail.com',
-        status: 'Active',
+        status: 'Pending',
     },
     {
         sNo: '3',
         name: 'Amit',
-        price: '200',
+        price: '600',
         email: 'akshat@gmail.com',
         status: 'Active',
     },
@@ -39,12 +40,12 @@ const UserData = [
         name: 'Deepraj',
         price: '200',
         email: 'akshat@gmail.com',
-        status: 'Active',
+        status: 'Rejected',
     },
     {
         sNo: '5',
         name: 'Raj',
-        price: '200',
+        price: '100',
         email: 'akshat@gmail.com',
         status: 'Active',
     }
@@ -52,15 +53,15 @@ const UserData = [
     {
         sNo: '6',
         name: 'Raj',
-        price: '200',
+        price: '600',
         email: 'akshat@gmail.com',
-        status: 'Active',
+        status: 'Rejected',
     }
     ,
     {
         sNo: '7',
         name: 'Raj',
-        price: '200',
+        price: '900',
         email: 'akshat@gmail.com',
         status: 'Active',
     }
@@ -70,7 +71,7 @@ const UserData = [
         name: 'Kumkum',
         price: '200',
         email: 'akshat@gmail.com',
-        status: 'Active',
+        status: 'Pending',
     },
     {
         sNo: '9',
@@ -87,14 +88,15 @@ function DraftOrders() {
     const DataPerPage = 5;
     const count = Math?.ceil(UserData?.length / DataPerPage);
 
+    /*  States for search filter  */
+    const [searchValue, setSearchValue] = useState('')
 
     /*   States for handling Actions    */
-
     const [actionIndex, setActionIndex] = useState([])
     const [selectedIndex, setSelectedIndex] = useState()
 
     /*  States for handling view */
-    const [viewOpen,setViewOpen]= useState(false)
+    const [viewOpen, setViewOpen] = useState(false)
 
     useEffect(() => {
 
@@ -132,23 +134,31 @@ function DraftOrders() {
 
     /*  functions for handling delete  */
 
-    const handleDeleteYes=()=>
-        {
-          setTimeout(() => {
-            
-              toast.success("Deleted successfully")
-          }, 300);
-        }
+    const handleDeleteYes = () => {
+        setTimeout(() => {
 
-    const handleDelete =(index)=>
-        {
-            AlertComponent({handleDeleteYes})
-        }
+            toast.success("Deleted successfully")
+        }, 300);
+    }
 
-    const handleView=()=>
-        {
-            setViewOpen(!viewOpen)
-        }
+    const handleDelete = (index) => {
+        AlertComponent({ handleDeleteYes })
+    }
+
+    const handleView = () => {
+        setViewOpen(!viewOpen)
+    }
+
+    // useEffect(() => {
+    //     let newData = [...UserData]
+
+    //     let filteredData =newData?.filter((itm) => {
+    //         if (itm.name.toLowerCase().includes(searchValue)) {
+    //             return itm
+    //         }
+    //     })
+    //     setFilteredData(filteredData)
+    // }, [searchValue])
 
     return (
         <div className='  bg-white flex py-6   px-6 mt-0   overflow-y-scroll  gap-4 flex-col  w-full h-full '>
@@ -156,15 +166,15 @@ function DraftOrders() {
                 <div className='  flex-col gap-5   w-full py-1 px-4 items-center justify-center mr-3 mt-1 flex'>
                     <div className=' w-full flex gap-2 px-2  items-center '>
                         <span className='  text-lg'>Search :</span>
-                        <div className=' w-1/3 flex items-center gap-1 relative'>
-                            <InputComponent type={'search'} placeholder={'Search Customers'} />
+                        <div className=' w-2/3 md:w-1/2 lg:w-1/3 flex items-center gap-1 relative'>
+                            <InputComponent onChange={(e) => setSearchValue(e.target.value)} type={'search'} placeholder={'Search Customers'} />
                             <span className=' cursor-text absolute right-3'>
                                 <FaSearch />
                             </span>
                         </div>
                     </div>
                     <div className='  w-full flex flex-col gap-5 items-center'>
-                        <table className='table rounded '>
+                        <table className=' hidden md:block  table rounded '>
                             <thead className='head divide-x-2 bg-slate-500 text-white rounded border-r border-l flex justify-between'>
                                 <th className=' w-1/2 font-medium  text-[14px]'>S. NO</th>
                                 <th className=' w-full font-medium text-[14px]  uppercase'>Customer Name</th>
@@ -186,9 +196,9 @@ function DraftOrders() {
                                                 {
                                                     actionIndex[indx] === true ?
                                                         <>  <span className=' select-none rounded-full lg:right-[80px] w-[130px] divide-x-2 2xl:right-[100px]  gap-1  py-1 px-2 shadow  bottom-0 bg-white absolute flex  items-center justify-between'>
-                                                            <span  className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17}/></span>
-                                                            <span onClick={()=>handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16}/></span>
-                                                            <span onClick={()=>handleView()} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17}/></span>
+                                                            <span className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
+                                                            <span onClick={() => handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16} /></span>
+                                                            <span onClick={() => handleView()} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17} /></span>
                                                         </span>
                                                         </>
                                                         : ""
@@ -199,7 +209,38 @@ function DraftOrders() {
                                 }
                             </tbody>
                             <DialogComponent open={viewOpen} maxWidth={'xl'}>
-                                <OrderView Id={selectedIndex} onclose={handleView}/>
+                                <OrderView Id={selectedIndex} onclose={handleView} />
+                            </DialogComponent>
+                        </table>
+                        <table className='  block md:hidden table rounded '>
+                        
+                            <tbody className=' flex flex-col md:flex-row items-start gap-1  '>
+                                {
+                                    FilteredData.map((itm, indx) => {
+                                        return <div key={indx} className=' w-full  items-start bg-slate-100 select-none sm:flex-col border-zinc-200 flex-col md:flex-row justify-between border-b-2   rounded-md  px-1 py-3'>
+                                            <span className=' w-full text-[14.5px] flex justify-between '><span className=' font-semibold'> S.No :</span>  {itm.sNo} </span>
+                                            <span className=' w-full text-[14.5px] flex justify-between'> <span className=' font-semibold'>Customer Name : </span>{itm.name} </span>
+                                            <span className=' w-full  text-[14.5px] flex justify-between'><span className=' font-semibold'>Customer Email :</span> {itm.email}</span>
+                                            <span className=' w-full  text-[14.5px] flex justify-between'><span className=' font-semibold'>Total Price</span>{itm.price}</span>
+                                            <span className=' w-full  text-[14.5px] flex justify-between'><span className=' font-semibold'>Order status</span>{itm.status}</span>
+                                            <span className=' w-full  text-[14.5px] justify-between relative  flex'> <span className=' font-semibold'>Actions  </span> <span className=' pt-1 cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx) }}><BsThreeDotsVertical /></span>
+                                                {
+                                                    actionIndex[indx] === true ?
+                                                        <>  <span className=' select-none rounded-full lg:right-[80px] w-[130px] divide-x-2 2xl:right-[100px]  gap-1  py-1 px-2 shadow  right-5 bottom-0 bg-white absolute flex  items-center justify-between'>
+                                                            <span className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
+                                                            <span onClick={() => handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16} /></span>
+                                                            <span onClick={() => handleView()} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17} /></span>
+                                                        </span>
+                                                        </>
+                                                        : ""
+                                                }
+                                            </span>
+                                        </div>
+                                    })
+                                }
+                            </tbody>
+                            <DialogComponent open={viewOpen} maxWidth={'xl'}>
+                                <OrderView Id={selectedIndex} onclose={handleView} />
                             </DialogComponent>
                         </table>
                     </div>

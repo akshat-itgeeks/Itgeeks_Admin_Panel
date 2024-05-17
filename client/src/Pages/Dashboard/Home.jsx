@@ -1,6 +1,7 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
 import DataTable from '../../components/DataTable'
+import MobileTabel from '../../components/MobileTable'
 function Home() {
 
   ////////// Dashboard top Cards Data ///////////
@@ -163,8 +164,12 @@ function Home() {
       </div>
           <span className=' font-bold self-center'>Monthly Profit Ratios</span>
       <hr />
-      <div className=' pb-2'>
+      <div className=' hidden md:block pb-2'>
         <DataTable Body={TableBody} Heading={TableHeading} />
+      </div>
+      <div className='block md:hidden pb-2'>
+        {/* <DataTable Body={TableBody} Heading={TableHeading} /> */}
+        <MobileTabel  Body={TableBody} Heading={TableHeading}/>
       </div>
     </div>
   )

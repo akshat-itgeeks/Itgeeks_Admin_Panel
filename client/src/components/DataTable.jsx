@@ -6,7 +6,7 @@ function DataTable(props) {
 
     return (
         <div className=' w-full h-full flex flex-col gap-2 '>
-            <div className=' flex w-full  rounded sm:flex-wrap  md:flex-nowrap bg-slate-200 p-2 gap-1 justify-between'>
+            <div className=' flex w-full  rounded  bg-slate-200 p-2 gap-1 justify-between'>
                 {
                     Heading?.map((itm,indx) => {
                         return <div key={indx}className=' w-full flex-wrap'>
@@ -19,7 +19,7 @@ function DataTable(props) {
             <div className=' w-full flex flex-col justify-between gap-3 p-2'>
                 {
                     Body?.map((itm,index) => {
-                        return <div key={index} className=' w-full md:flex-nowrap sm:flex-wrap flex items-center justify-center  '>
+                        return <div key={index} className=' w-full flex items-center justify-center  '>
                             {
 
                                 Object.values(itm)?.map((itm,idx) => {
@@ -27,7 +27,6 @@ function DataTable(props) {
                                         <span>
                                             {itm?itm:'N/A'}
                                         </span>
-                                        
                                         <hr />
                                     </div>
                                 }) 

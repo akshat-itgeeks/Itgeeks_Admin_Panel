@@ -12,6 +12,7 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Cookies from 'js-cookie'
 import { useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi";
+import { FaUsers } from "react-icons/fa6";
 import { useEffect } from 'react';
 
 function Dashboard() {
@@ -109,7 +110,7 @@ function Dashboard() {
             <span className={`  ${ActivePath.includes('dashboard') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border  rounded  py-2 flex gap-2 items-center px-4 `} onClick={() => { navigate('') }}> <IoHomeOutline />{sideBarToggle ? <span className='  m-0 p-0'>Home</span> : ''} </span>
             <span onClick={() => { navigate('profile') }} className={` px-4 ${ActivePath.includes('profile') ? " bg-slate-600 px-4  text-white" : " bg-white"} cursor-pointer  border rounded  px-3 py-2 flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"} `}> <FaRegUser />{sideBarToggle ? "Profile" : ""}</span>
             <span className={`  ${ActivePath.includes('menu') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('menu') }}><IoMenu /> {sideBarToggle ? "Menu" : ""}  </span>
-            <span className={`  ${ActivePath.includes('customers') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('customers') }}><IoMenu /> {sideBarToggle ? "Customers" : ""}  </span>
+            <span className={`  ${ActivePath.includes('customers') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('customers') }}><FaUsers/>{sideBarToggle ? "Customers" : ""}  </span>
             <span className={`  ${ActivePath.includes('orders') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('draft-orders') }}><FiShoppingCart/> {sideBarToggle ? "Draft Orders" : ""}  </span>
           </div>
         </div>

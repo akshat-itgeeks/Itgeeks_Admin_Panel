@@ -96,12 +96,12 @@ function Login(props) {
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>
-                        <div className='flex bg-white justify-center flex-col gap-8 items-center w-1/2 border rounded-lg shadow px-2 mb-20 py-3'>
+                        <div className='flex bg-white justify-center flex-col gap-8 items-center lg:w-1/2 w-5/6 border rounded-lg shadow px-2 mb-20 py-3'>
                             <div>
                                 <span className=' font-mono  text-[26px]  tracking-wide'>LOGIN</span>
                             </div>
                             <div className=' w-full items-center justify-center grid grid-cols-1 gap-5'>
-                                <div className=' w-1/2 relative  mx-auto'>
+                                <div className=' w-2/3 lg:w-1/2 relative  mx-auto'>
                                     <InputComponent
                                         name={'email'}
                                         onChange={loginProps.handleChange}
@@ -109,7 +109,7 @@ function Login(props) {
                                         value={loginProps.values.email}
                                     />
                                 </div>
-                                <div className='relative w-1/2 self-center  mx-auto'>
+                                <div className='relative w-2/3 lg:w-1/2 self-center  mx-auto'>
                                     <InputComponent
                                         value={loginProps.values.password}
                                         name={'password'}
@@ -118,7 +118,7 @@ function Login(props) {
                                         placeholder={'Enter your password'}
                                     />
                                 </div>
-                                <div className=' w-1/2 flex  flex-col mx-auto self-center gap-0'>
+                                <div className=' w-2/3 lg:w-1/2 flex  flex-col mx-auto self-center gap-0'>
                                     <div className=' flex gap-1'>
 
                                         {/* <input type="checkbox" name='rememberMe' /> */}
@@ -131,7 +131,7 @@ function Login(props) {
                                 </div>
                             </div>
 
-                            <div className=' w-1/2  gap-1 flex flex-col'>
+                            <div className=' w-2/3 lg:w-1/2  gap-1 flex flex-col'>
 
                                 <button type='submit' className=' mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {isLoading?<span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17}/></span>:"LOGIN"}</button>
                             </div>
