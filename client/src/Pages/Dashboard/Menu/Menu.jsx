@@ -141,7 +141,7 @@ function Menu() {
             }
           </Tbody>
         </Table>
-        <DialogComponent maxWidth={'sm'} open={DialogOpen}>
+        <DialogComponent maxWidth={'md'} open={DialogOpen}>
           <MenuEdit close={handleDialogClose}/>
         </DialogComponent>
       </div>
