@@ -10,7 +10,8 @@ function EmailAuth() {
 
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('');
-    const [linksend,setLinkSend]= useState(false)
+    const [linksend,setLinkSend]= useState(false);
+    const [loading,setLoading]= useState(false)
 
 
     /* form initialValues */
@@ -27,6 +28,7 @@ function EmailAuth() {
 
     /* handling form submit */
     const handleSubmit = (data,{ resetForm } ) => {
+        setLoading(true)
         setUserData(data)
         tutorialService.resetPassword(data)
         .then((res)=> res.data)
@@ -39,15 +41,19 @@ function EmailAuth() {
                         toast.success(dta?.message)
                         setLinkSend(true);
                         resetForm();
-                    }, 200);
+                    }, 100);
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 600);
                 }
                 else
                 {
                     toast.error('something went wrong')
                     setLinkSend(false)
                 }
+                setLoading(false)
         })
-        .catch((err)=> {toast.error(err.response.data.message); setLinkSend(false)})
+        .catch((err)=> {toast.error(err.response.data.message); setLoading(false); setLinkSend(false)})
 
     };
 

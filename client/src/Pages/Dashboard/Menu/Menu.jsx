@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputComponent from '../../../components/InputComponent'
 import { FaEdit, FaSearch } from 'react-icons/fa'
 import { AiFillDelete } from 'react-icons/ai';
@@ -70,11 +70,71 @@ const UserData = [
     email: 'akshat@gmail.com',
     status: 'Active',
   },
+  {
+    name: 'Deeprasdj',
+    email: 'dafsdfffffffffsf@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Akshat',
+    email: 'akshafdfast@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },{
+    name: 'Deeprasdj',
+    email: 'dafsdfffffffffsf@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Akshat',
+    email: 'akshafdfast@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Deeprasdj',
+    email: 'dafsdfffffffffsf@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Akshat',
+    email: 'akshafdfast@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },{
+    name: 'Deeprasdj',
+    email: 'dafsdfffffffffsf@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Akshat',
+    email: 'akshafdfast@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
 ]
 function Menu() {
 
-  const [selectedIndex,setSelectedIndex]= useState();
-  const [DialogOpen,setDialogOpen]= useState(false)
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [DialogOpen, setDialogOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [filteredData,setFilteredData]= useState([])
 
   /*  Handle Delete onclick */
   let submit = () => {
@@ -95,23 +155,31 @@ function Menu() {
   };
 
   /* Functions  for handling Edit  */
-  const handleEdit = (indx)=>
-    {
-      setSelectedIndex(indx);
-      setDialogOpen(true)
-    }
+  const handleEdit = (indx) => {
+    setSelectedIndex(indx);
+    setDialogOpen(true)
+  }
 
-    const handleDialogClose=()=>
-      {
-        setDialogOpen(false)
+  const handleDialogClose = () => {
+    setDialogOpen(false)
+  }
+
+  useEffect(() => {
+    let updatedData = UserData.filter((itm) => {
+      if (itm.name.toLowerCase().includes(query.toLowerCase().trim())) {
+        return itm
       }
+    })
+    setFilteredData(updatedData)
+  }, [query])
+
   return (
     <>
       <div className=' bg-white flex py-4 px-3 overflow-y-scroll  gap-4 flex-col  w-full h-full '>
         <div className=' w-full flex gap-5 px-2 pb-3 items-center '>
           <span className=' font-semibold text-xl'>Users</span>
           <div className=' w-1/4 flex items-center gap-1 relative'>
-            <InputComponent type={'search'} placeholder={'Search Users'} />
+            <InputComponent value={query} onChange={(e) => setQuery(e.target.value)} type={'text'} placeholder={'Search Users'} />
             <span className=' cursor-text absolute right-3'>
               <FaSearch />
             </span>
@@ -128,12 +196,12 @@ function Menu() {
           </Thead>
           <Tbody className="">
             {
-              UserData.map((itm,indx) => {
+              filteredData?.map((itm, indx) => {
                 return <Tr className=' border-b-2 gap-3  rounded-md my-1  px-2 py-3'>
                   <Td className=' my-1  pl-3 sm:py-2 sm:w-1/3'>{itm.name} </Td>
                   <Td className=' sm:py-1 sm:w-1/3 '>{itm.email}</Td>
                   <Td className=' sm:py-1'>{itm.status}</Td>
-                  <Td className='  sm:py-1'><span className=' flex items-center cursor-pointer'><span onClick={()=>handleEdit(indx)} className=' self-center'><FaEdit size={17} /></span> / <span className=' flex items-center self-center cursor-pointer' onClick={() => {
+                  <Td className='  sm:py-1'><span className=' flex items-center cursor-pointer'><span onClick={() => handleEdit(indx)} className=' self-center'><FaEdit size={17} /></span> / <span className=' flex items-center self-center cursor-pointer' onClick={() => {
                     submit()
                   }}> <AiFillDelete size={18} /></span></span></Td>
                 </Tr>
@@ -142,43 +210,11 @@ function Menu() {
           </Tbody>
         </Table>
         <DialogComponent maxWidth={'md'} open={DialogOpen}>
-          <MenuEdit close={handleDialogClose}/>
+          <MenuEdit  close={handleDialogClose} />
         </DialogComponent>
       </div>
     </>
-    // <div className=' bg-white flex py-4 px-3 overflow-y-scroll  gap-4 flex-col  w-full h-full '>
-    //   <div className=' w-full flex gap-5 px-2 pb-3 items-center '>
-    //     <span className=' font-semibold text-xl'>Users</span>
-    //     <div className=' w-1/4 flex items-center gap-1 relative'>
-    //       <InputComponent type={'search'} placeholder={'Search Users'} />
-    //       <span className=' cursor-text absolute right-3'>
-    //         <FaSearch />
-    //       </span>
-    //     </div>
-    //   </div>
-    //   {/* <span className=' font-semibold text-[32px]  mx-auto'>It's Menu !</span> */}
-    //   <div className=' w-full flex flex-col gap-5 items-center'>
-    //     <div className=' w-full flex justify-between bg-slate-100 rounded-md  px-2 py-3'>
-    //       <span className=' w-full pl-3'>Name </span>
-    //       <span className=' w-full'>Email</span>
-    //       <span className=' w-full'>Status</span>
-    //       <span className=' w-1/2'>Action</span>
-    //     </div>
-    //   </div>
-    //   <div className=' w-full flex flex-col gap-3 items-center'>
-    //     {
-    //       UserData.map((itm) => {
-    //         return <div className=' w-full flex justify-between border  rounded-md  px-2 py-3'>
-    //           <span className=' w-full pl-3'>{itm.name} </span>
-    //           <span className=' w-full'>{itm.email}</span>
-    //           <span className=' w-full'>{itm.status}</span>
-    //           <span className=' w-1/2 flex gap-1 items-center'><span className=' cursor-pointer'><FaEdit size={18} /></span> / <span className=' cursor-pointer' onClick={() => { submit()
-    //           }}> <AiFillDelete size={19} /></span></span>
-    //         </div>
-    //       })
-    //     }
-    //   </div>
-    // </div>
+
   )
 }
 

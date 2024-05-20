@@ -19,18 +19,16 @@ function Dashboard() {
 
   const LoginData = useSelector(state => state.loginSlice.data)
 
-  console.log(LoginData)
+
+  /* remember me logic */
   // window.addEventListener("beforeunload", function (e) {
   //   if (LoginData?.rememberMe === true) {
   //     return
   //   }
   //   else if (LoginData?.rememberMe === false) {
-      
   //      Cookies.remove("AuthLogin");
   //     }
-     
   //   }
-   
   // );
 
 
@@ -77,7 +75,7 @@ function Dashboard() {
     <div>
       <div className=' h-11  relative px-2 py-0 flex justify-end items-center  w-full bg-slate-700'>
         <span className='w-full  '>
-          <span className='text-lg cursor-pointer text-white select-none italic pl-1'>ItGeeks</span>
+          <span onClick={()=>navigate('/dashboard')} className='text-lg cursor-pointer text-white select-none italic pl-1'>ItGeeks</span>
         </span>
 
         <span onClick={() => handleProfileToggle()} className=' select-none cursor-pointer flex items-center justify-center text-slate-50 w-8 h-8 bg-slate-400 rounded-full  italic  font-semibold'>
@@ -85,10 +83,9 @@ function Dashboard() {
         </span>
         {
 
-
           <div className={` ${ToggleProfile ? "mymove" : "mymoveReverse"} transition-all duration-500 top-[45px] px-2 select-none  text-white  flex flex-col gap-1 absolute w-[120px] z-50 rounded py-1 bg-slate-500`}>
             <span onClick={() => { navigate('profile'); setToggleProfile(false) }} className=' transition ease-in duration-200 self-center cursor-pointer flex gap-1 items-center'><FaRegUser size={14} /> Profile</span>
-            <hr className='  bg-white' />
+            <hr className='bg-white' />
             <span onClick={() => handleLogout()} className=' transition ease-in duration-200 cursor-pointer self-center flex items-center gap-1'> <RiLogoutBoxLine /> Logout</span>
           </div>
         }

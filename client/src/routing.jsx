@@ -50,8 +50,8 @@ function Routing() {
                 <Route path="/forgot-password" element={<ForgetPassword />} />
                 <Route path="/reset-password" element={<EmailAuth />} />
                 <Route path="*" element= {<Login auth={setAthenticateLogin}/>} />
-                {
-                    authenticateLogin ?
+                {/* {
+                    authenticateLogin ? */}
                     <Route path="/dashboard" element={<Dashboard />} >
                             <Route path='' element={<Home />} />
                             <Route path="profile" element={<Profile />} />
@@ -60,7 +60,7 @@ function Routing() {
                             {/* <Route path='home' element={<Home />} /> */}
                             <Route path='menu' element={<Menu />} />
                         </Route> :""
-}
+{/* } */}
 
             </Routes>
         </div>
