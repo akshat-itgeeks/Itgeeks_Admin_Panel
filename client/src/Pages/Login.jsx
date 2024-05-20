@@ -7,7 +7,7 @@ import InputComponent from '../components/InputComponent';
 import Cookies from 'js-cookie'
 import { setLoginData } from '../Redux/Slices/loginSlice';
 import { useDispatch } from 'react-redux';
-import tutorialService from '../services/tutorial.service';
+import tutorialService from '../services/authService';
 import { useState } from 'react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -122,18 +122,18 @@ function Login(props) {
                                     <div className=' flex gap-1'>
 
                                         {/* <input type="checkbox" name='rememberMe' /> */}
-                                        <input type="checkbox" name='rememberMe' onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)} />
-                                        <span className=' text-[14px]'>Remember me ?</span>
+                                        {/* <input type="checkbox" name='rememberMe' onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)} />
+                                        <span className=' text-[14px]'>Remember me ?</span> */}
                                     </div>
                                     <div className=' w-full flex  mx-auto justify-end flex-col items-end '>
-                                        <span onClick={() => navigate('/forgetPassword')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>
+                                        <span onClick={() => navigate('/reset-password')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div className=' w-2/3 lg:w-1/2  gap-1 flex flex-col'>
 
-                                <button type='submit' className=' mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {isLoading?<span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17}/></span>:"LOGIN"}</button>
+                                <button type='submit' className=' text-white mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {isLoading?<span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17}/></span>:"LOGIN"}</button>
                             </div>
 
                         </div>

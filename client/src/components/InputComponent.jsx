@@ -15,7 +15,7 @@ function InputComponent(
   
             <div className=' w-full relative'>
                 {
-                    label && <span className=' text-[12px]'>{label}</span>
+                    label && <span className=' text-[13px]'>{label}</span>
                 }
                 <input
                     value={value}
