@@ -2,6 +2,9 @@ const { AdminDetails } = require("../constants/constants");
 const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const emailConfig = require('../config/email');
+const emailTemplates = require('../utils/emailTemplate.js');
 
 const db = require("../models");
 const Users = db.users;
@@ -34,4 +37,31 @@ exports.register = async (details) => {
     // remove password
     delete userDetails.dataValues.password;
     return userDetails;
-}  
+}
+
+// check user exist by email
+exports.userExistByEmail = async (email) => {
+    const userDetails = await Users.findOne({ where: { email } });
+    return userDetails;
+}
+
+// reset user password by email
+exports.resetPassword = async (email) => {
+    const transporter = nodemailer.createTransport(emailConfig);
+    const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}?email=${email}`);
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(`Reset Password ${ErrorMessage.EMAIL_NOT_SEND}`, error);
+        } else {
+            console.log(`Reset Password ${SuccessMessage.EMAIL_SEND}`, info.response);
+        }
+    });
+    return true;
+}
+
+// forgot user password by email
+exports.forgotPassword = async (email, password) => {
+    const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
+    await Users.update({ password: hashPassword }, { where: { email } });
+    return true;
+}

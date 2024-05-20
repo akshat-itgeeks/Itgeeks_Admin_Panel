@@ -31,3 +31,38 @@ exports.register = async (req, res) => {
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 };
+
+//  resetPassword controller
+exports.resetPassword = async (req, res) => {
+    console.info('***************************************************Reset Password Api************************************************');
+    try {
+        const email = req.body.email;
+        const emailExist = await service.userExistByEmail(email);
+        if (!emailExist) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `User ${ErrorMessage.NOT_FOUND}`);
+        }
+        await service.resetPassword(email);
+        return sendResponse(res, statusCode.OK, true, SuccessMessage.RESET_PASSWORD);
+    } catch (error) {
+        console.error('Error in reset password api : ', error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+    }
+};
+
+//  forgotPassword controller
+exports.forgotPassword = async (req, res) => {
+    console.info('***************************************************Forgot Password Api************************************************');
+    try {
+        const email = req.query.email;
+        const password = req.body.password;
+        const emailExist = await service.userExistByEmail(email);
+        if (!emailExist) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `User ${ErrorMessage.NOT_FOUND}`);
+        }
+        await service.forgotPassword(email, password);
+        return sendResponse(res, statusCode.OK, true, SuccessMessage.FORGOT_PASSWORD);
+    } catch (error) {
+        console.error('Error in forgot password api : ', error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+    }
+};
