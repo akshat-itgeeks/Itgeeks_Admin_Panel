@@ -3,6 +3,7 @@ import InputComponent from '../../../components/InputComponent';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import Select from 'react-select';
+import toast from 'react-hot-toast';
 
 function MenuEdit({ close }) {
 
@@ -25,6 +26,11 @@ function MenuEdit({ close }) {
     /* handle form submit */
     const handleSubmit = (data) => {
         console.log(data);
+        toast.success("Data updated successfully")
+        setTimeout(() => {
+            
+            close()
+        }, 300);
     };
 
     /* select options */
@@ -34,7 +40,7 @@ function MenuEdit({ close }) {
     ];
 
     return (
-        <div className='w-full flex flex-col gap-5'>
+        <div className='w-full flex flex-col gap-5 py-1'>
             <div className='flex w-full justify-between items-center'>
                 <div className='uppercase text-lg font-semibold'>
                     Edit User

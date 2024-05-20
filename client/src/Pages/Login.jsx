@@ -126,7 +126,7 @@ function Login(props) {
                                         <span className=' text-[14px]'>Remember me ?</span> */}
                                     </div>
                                     <div className=' w-full flex  mx-auto justify-end flex-col items-end '>
-                                        <span onClick={() => navigate('/forgetPassword')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>
+                                        <span onClick={() => navigate('/reset-password')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>
                                     </div>
                                 </div>
                             </div>

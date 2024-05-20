@@ -47,8 +47,8 @@ function Routing() {
         <div>
             <Routes>
                 <Route path="/" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="/forgetPassword2" element={<ForgetPassword />} />
-                <Route path="/forgetPassword" element={<EmailAuth />} />
+                <Route path="/forgot-password" element={<ForgetPassword />} />
+                <Route path="/reset-password" element={<EmailAuth />} />
                 <Route path="*" element= {<Login auth={setAthenticateLogin}/>} />
                 {
                     authenticateLogin ?
