@@ -3,27 +3,52 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import InputComponent from '../../components/InputComponent';
+import tutorialService from '../../services/authService';
+import toast from 'react-hot-toast'
 
 function EmailAuth() {
 
     let navigate = useNavigate();
-    const [UserData, setUserData] = useState('')
+    const [UserData, setUserData] = useState('');
+    const [linksend,setLinkSend]= useState(false)
+
 
     /* form initialValues */
     const [initialValues, setInitialValues] = useState({
         email:''
     });
 
+
     /* form Validation using Yup */
     const validationSchema = yup.object().shape({
         email: yup.string().trim().required("email is required").email(),
     });
 
+
     /* handling form submit */
-    const handleSubmit = (data) => {
-        
+    const handleSubmit = (data,{ resetForm } ) => {
         setUserData(data)
-        // navigate('/')
+        tutorialService.resetPassword(data)
+        .then((res)=> res.data)
+        .then((dta)=>
+        {
+            if(dta?.status)
+                {
+                    setTimeout(() => {
+                        
+                        toast.success(dta?.message)
+                        setLinkSend(true);
+                        resetForm();
+                    }, 200);
+                }
+                else
+                {
+                    toast.error('something went wrong')
+                    setLinkSend(false)
+                }
+        })
+        .catch((err)=> {toast.error(err.response.data.message); setLinkSend(false)})
+
     };
 
     
@@ -36,15 +61,19 @@ function EmailAuth() {
     // }, [localData])
 
     return (
-        <div className='h-[100vh] flex w-full items-center justify-center'>
+        <div className='h-[100vh] relative flex-col gap-2 flex w-full items-center justify-center'>
+                
+
+                <span className=' text-[18px]  text-green-500'> {linksend&& "Check Your Email to Reset Password !"} </span>
+          
             <Formik
                 validationSchema={validationSchema}
                 initialValues={initialValues}
-                onSubmit={(val) => handleSubmit(val)}
+                onSubmit={handleSubmit}
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>
-                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 border rounded shadow px-2 mb-20 py-3'>
+                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 border rounded shadow px-2 mb-12 py-3'>
                             <div>
                                 <span className=' font-mono  text-2xl  tracking-wide'>Reset Password</span>
                             </div>
@@ -72,6 +101,7 @@ function EmailAuth() {
                     </Form>
                 )}
             </Formik>
+           
         </div>
     );
 }

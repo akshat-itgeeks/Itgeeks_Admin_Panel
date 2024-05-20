@@ -7,7 +7,7 @@ import InputComponent from '../components/InputComponent';
 import Cookies from 'js-cookie'
 import { setLoginData } from '../Redux/Slices/loginSlice';
 import { useDispatch } from 'react-redux';
-import tutorialService from '../services/tutorial.service';
+import tutorialService from '../services/authService';
 import { useState } from 'react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -122,8 +122,8 @@ function Login(props) {
                                     <div className=' flex gap-1'>
 
                                         {/* <input type="checkbox" name='rememberMe' /> */}
-                                        <input type="checkbox" name='rememberMe' onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)} />
-                                        <span className=' text-[14px]'>Remember me ?</span>
+                                        {/* <input type="checkbox" name='rememberMe' onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)} />
+                                        <span className=' text-[14px]'>Remember me ?</span> */}
                                     </div>
                                     <div className=' w-full flex  mx-auto justify-end flex-col items-end '>
                                         <span onClick={() => navigate('/forgetPassword')} className=' cursor-pointer text-slate-600'>Forgot Password ?</span>

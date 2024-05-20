@@ -3,7 +3,7 @@ import { Routes, Route,  } from "react-router-dom";
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Home from './Pages/Dashboard/Home';
-import Menu from './Pages/Dashboard/Menu';
+import Menu from './Pages/Dashboard/Menu/Menu';
 // import NoPageFound from './Pages/NoPageFound';
 // import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import Profile from './Pages/Profile/Profile';
@@ -11,6 +11,7 @@ import EmailAuth from './Pages/ForgetPassword/EmailAuth';
 import Cookies from 'js-cookie'
 import Categories from './Pages/Categories/Categories';
 import DraftOrders from './Pages/DraftOrders/DraftOrders';
+import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 
 
 function Routing() {
@@ -46,7 +47,7 @@ function Routing() {
         <div>
             <Routes>
                 <Route path="/" element={<Login auth={setAthenticateLogin} />} />
-                {/* <Route path="/forgetPassword" element={<ForgetPassword />} /> */}
+                <Route path="/forgetPassword2" element={<ForgetPassword />} />
                 <Route path="/forgetPassword" element={<EmailAuth />} />
                 <Route path="*" element= {<Login auth={setAthenticateLogin}/>} />
                 {

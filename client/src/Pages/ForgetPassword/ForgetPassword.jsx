@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import InputComponent from '../../components/InputComponent';
+import authService from '../../services/authService';
+import toast from 'react-hot-toast';
 
 function ForgetPassword() {
 
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('')
+
+    /* code for getting email from url */
+    const urlParams = new URLSearchParams(window.location.search);
+    const  paramEmail = urlParams.get('email');
+    console.log(paramEmail);
 
     /* form initialValues */
     const [initialValues, setInitialValues] = useState({
@@ -15,34 +22,58 @@ function ForgetPassword() {
         confirmPassword: '',
     });
 
+
     /* form Validation using Yup */
     const validationSchema = yup.object().shape({
-        password: yup.string().trim().required("password is required").min(5, "enter minimum 5 character"),
-        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim().required("confirm password is required").min(5, "enter minimum 5 character"),
+        password: yup.string().trim().required("password is required").min(6, "enter minimum 6 characters"),
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim().required("confirm password is required").min(6, "enter minimum 6 characters"),
     });
 
-    /* handling form submit */
-    const handleSubmit = (data) => {
-        setUserData(data)
-        navigate('/')
-    };
-    let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
 
-    /////////// if user already logged in will be redirect to dashboard */
-    useEffect(()=>
-    {
-        if(localData || localData !=null  )
-            {
-                navigate('/dashboard')
-            }
-    },[localData])
+    /* handling form submit */
+    const handleSubmit = (data,{ resetForm}) => {
+        setUserData(data)
+        authService.forgotPassword(data,paramEmail)
+        .then((res)=>res.data)
+        .then((data)=>
+        {
+            if(data.status)
+                {
+
+                    toast.success(data.message)
+                    resetForm();
+                    navigate('/')
+                }
+                else
+                {
+                    toast.error('Something went wrong')
+                }
+        })
+        .catch((err)=>
+        {
+            toast.error(err.response.data.message)
+        })
+        // navigate('/')
+    };
+
+
+
+    // let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
+    // /////////// if user already logged in will be redirect to dashboard */
+    // useEffect(()=>
+    // {
+    //     if(localData || localData !=null  )
+    //         {
+    //             navigate('/dashboard')
+    //         }
+    // },[localData])
 
     return (
         <div className='h-[100vh] flex w-full items-center justify-center'>
             <Formik
                 validationSchema={validationSchema}
                 initialValues={initialValues}
-                onSubmit={(val) => handleSubmit(val)}
+                onSubmit={handleSubmit}
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>

@@ -1,76 +1,82 @@
-import React from 'react'
-import InputComponent from '../../components/InputComponent'
+import React, { useState } from 'react'
+import InputComponent from '../../../components/InputComponent'
 import { FaEdit, FaSearch } from 'react-icons/fa'
 import { AiFillDelete } from 'react-icons/ai';
 import { confirmAlert } from 'react-confirm-alert'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import DialogComponent from '../../../components/DialogComponent';
+import MenuEdit from './MenuEdit';
 /* testing one library table */
 
+const UserData = [
+  {
+    name: 'Akshat',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshaddddddddt@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Amit',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Deepraj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Raj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Deepraj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Raj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Deepraj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Raj',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Deeprasdj',
+    email: 'dafsdfffffffffsf@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Akshat',
+    email: 'akshafdfast@gmail.com',
+    status: 'Active',
+  },
+  {
+    name: 'Kumkum',
+    email: 'akshat@gmail.com',
+    status: 'Active',
+  },
+]
 function Menu() {
 
-  const UserData = [
-    {
-      name: 'Akshat',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Kumkum',
-      email: 'akshaddddddddt@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Amit',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Deepraj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Raj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Deepraj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Raj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Deepraj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Raj',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Deeprasdj',
-      email: 'dafsdfffffffffsf@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Akshat',
-      email: 'akshafdfast@gmail.com',
-      status: 'Active',
-    },
-    {
-      name: 'Kumkum',
-      email: 'akshat@gmail.com',
-      status: 'Active',
-    },
-  ]
+  const [selectedIndex,setSelectedIndex]= useState();
+  const [DialogOpen,setDialogOpen]= useState(false)
+
+  /*  Handle Delete onclick */
   let submit = () => {
     return confirmAlert({
       title: 'Confirm to submit',
@@ -88,6 +94,17 @@ function Menu() {
     });
   };
 
+  /* Functions  for handling Edit  */
+  const handleEdit = (indx)=>
+    {
+      setSelectedIndex(indx);
+      setDialogOpen(true)
+    }
+
+    const handleDialogClose=()=>
+      {
+        setDialogOpen(false)
+      }
   return (
     <>
       <div className=' bg-white flex py-4 px-3 overflow-y-scroll  gap-4 flex-col  w-full h-full '>
@@ -111,12 +128,12 @@ function Menu() {
           </Thead>
           <Tbody className="">
             {
-              UserData.map((itm) => {
+              UserData.map((itm,indx) => {
                 return <Tr className=' border-b-2 gap-3  rounded-md my-1  px-2 py-3'>
                   <Td className=' my-1  pl-3 sm:py-2 sm:w-1/3'>{itm.name} </Td>
                   <Td className=' sm:py-1 sm:w-1/3 '>{itm.email}</Td>
                   <Td className=' sm:py-1'>{itm.status}</Td>
-                  <Td className='  sm:py-1'><span className=' flex items-center cursor-pointer'><span className=' self-center'><FaEdit size={17} /></span> / <span className=' flex items-center self-center cursor-pointer' onClick={() => {
+                  <Td className='  sm:py-1'><span className=' flex items-center cursor-pointer'><span onClick={()=>handleEdit(indx)} className=' self-center'><FaEdit size={17} /></span> / <span className=' flex items-center self-center cursor-pointer' onClick={() => {
                     submit()
                   }}> <AiFillDelete size={18} /></span></span></Td>
                 </Tr>
@@ -124,6 +141,9 @@ function Menu() {
             }
           </Tbody>
         </Table>
+        <DialogComponent maxWidth={'sm'} open={DialogOpen}>
+          <MenuEdit close={handleDialogClose}/>
+        </DialogComponent>
       </div>
     </>
     // <div className=' bg-white flex py-4 px-3 overflow-y-scroll  gap-4 flex-col  w-full h-full '>
