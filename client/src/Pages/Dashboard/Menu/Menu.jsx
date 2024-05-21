@@ -7,6 +7,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import DialogComponent from '../../../components/DialogComponent';
 import MenuEdit from './MenuEdit';
+import { IoWarning } from 'react-icons/io5';
 /* testing one library table */
 
 const UserData = [
@@ -185,7 +186,9 @@ function Menu() {
             </span>
           </div>
         </div>
-        <Table>
+        {
+          filteredData.length>0 ?
+          <Table>
           <Thead>
             <Tr className='   bg-slate-200  rounded pb-2 mb-2  px-2 py-3'>
               <Th className="py-2 pl-3">Name</Th>
@@ -209,6 +212,12 @@ function Menu() {
             }
           </Tbody>
         </Table>
+          : <div className=' text-lg w-full flex items-center justify-center gap-3'>
+            <IoWarning/>
+            No data found
+          </div>
+        }
+        
         <DialogComponent maxWidth={'md'} open={DialogOpen}>
           <MenuEdit  close={handleDialogClose} />
         </DialogComponent>

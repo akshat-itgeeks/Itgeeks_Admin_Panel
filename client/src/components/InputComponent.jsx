@@ -8,14 +8,15 @@ function InputComponent(
         placeholder,
         name,
         type,
-        label
+        label,
+        required
     }
 ) {
     return (
   
             <div className=' w-full relative'>
                 {
-                    label && <span className=' text-[13px]'>{label}</span>
+                    label && <span className=' font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span> } </span>
                 }
                 <input
                     value={value}

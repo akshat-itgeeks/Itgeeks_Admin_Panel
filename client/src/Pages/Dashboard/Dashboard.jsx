@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
 import { useEffect } from 'react';
+import { IoSettingsOutline } from "react-icons/io5";
 
 function Dashboard() {
 
@@ -109,10 +110,10 @@ function Dashboard() {
             <span className={`  ${ActivePath.includes('menu') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('menu') }}><IoMenu /> {sideBarToggle ? "Menu" : ""}  </span>
             <span className={`  ${ActivePath.includes('customers') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('customers') }}><FaUsers/>{sideBarToggle ? "Customers" : ""}  </span>
             <span className={`  ${ActivePath.includes('orders') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('draft-orders') }}><FiShoppingCart/> {sideBarToggle ? "Draft Orders" : ""}  </span>
+            <span className={`  ${ActivePath.includes('stores') ? " bg-slate-600  text-white" : " bg-white"} cursor-pointer  border rounded px-4 py-2  flex gap-2 items-center ${sideBarToggle ? "px-6" : "px-1"}`} onClick={() => { navigate('stores') }}><IoSettingsOutline/> {sideBarToggle ? "Stores" : ""}  </span>
           </div>
         </div>
         <div className=' w-full'>
-
           <Outlet />
         </div>
       </div>

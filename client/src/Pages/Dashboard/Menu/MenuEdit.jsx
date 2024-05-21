@@ -55,7 +55,7 @@ function MenuEdit({ close }) {
                 >
                     {(menuProps) => (
                         <Form className='flex flex-col gap-[25px]'>
-                            <div className='items-center grid grid-cols-2 gap-5'>
+                            <div className='items-center grid grid-cols-1 sm:grid-cols-2 gap-5'>
                                 <InputComponent
                                     label={'Name'}
                                     placeholder={'Enter your name'}

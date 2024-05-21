@@ -43,3 +43,10 @@
   {
     height: 40.5px;
   }
+
+  .p-highlight
+  {
+    border-radius: 100%;
+    background-color: rgb(114, 109, 109);
+    color: white;
+  }
