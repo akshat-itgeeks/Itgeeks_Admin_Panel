@@ -7,6 +7,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { IoMdEye } from "react-icons/io";
 import AlertComponent from '../../components/AlertComponent';
 import { toast } from 'react-hot-toast'
+import EditStore from './EditStore';
 // import DialogComponent from '../../components/DialogComponent';
 // import OrderView from './OrderView/OrderView';
 
@@ -93,7 +94,7 @@ function Settings() {
     const [selectedIndex, setSelectedIndex] = useState()
 
     /*  States for handling view */
-    const [viewOpen, setViewOpen] = useState(false)
+    const [viewOpen, setViewOpen] = useState(false);
 
     useEffect(() => {
 
@@ -143,10 +144,15 @@ function Settings() {
     }
 
     const handleView = () => {
-        setViewOpen(!viewOpen)
+        // setViewOpen(!viewOpen)
     }
+
     /* States for Add  */
     const [actionOpen, setActionOpen] = useState(false)
+
+    /*  States for Edit */
+    const [editOpen,setEditOpen]= useState(false)
+
 
 
     const handleActionOpen = () => {
@@ -157,15 +163,15 @@ function Settings() {
         setActionOpen(false)
     }
 
-    const dta = [
-        { "name": 'a', "countryName": "Aewas", "company": "ItGeeks", "representative": "Shopify" },
-        { "name": 'a', "countryName": "Dewas", "company": "ItGeeks", "representative": "Shopify" },
-        { "name": 'a', "countryName": "Zewas", "company": "ItGeeks", "representative": "Shopify" },
-        { "name": 'a', "countryName": "Dewas", "company": "ItGeeks", "representative": "Shopify" },
-        { "name": 'a', "countryName": "Dewas", "company": "ItGeeks", "representative": "Shopify" },
-        { "name": 'a', "countryName": "Dewas", "company": "ItGeeks", "representative": "Shopify" },
 
-    ]
+    const handleEdit=()=>
+        {
+            setEditOpen(!editOpen)
+            if(editOpen==true)
+                {
+                    setActionIndex('')
+                }
+        }
 
 
     return (
@@ -181,6 +187,10 @@ function Settings() {
                 </div>
                 <DialogComponent open={actionOpen} maxWidth={'md'}>
                     <AddStore close={handleActionClose} />
+                </DialogComponent>
+
+                <DialogComponent open={editOpen} maxWidth={'md'}>
+                    <EditStore Id={selectedIndex} close={handleEdit}/>
                 </DialogComponent>
             </div>
             <div className='  w-full flex-wrap   rounded '>
@@ -215,7 +225,7 @@ function Settings() {
                                                 {
                                                     actionIndex[indx] === true ?
                                                         <>  <span className=' select-none rounded-full lg:right-[169px] w-[130px] divide-x-2 2xl:right-[200px]  gap-1  py-1 px-2 shadow  bottom-0 bg-white absolute flex  items-center justify-between'>
-                                                            <span className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
+                                                            <span onClick={()=> handleEdit()} className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
                                                             <span onClick={() => handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16} /></span>
                                                             <span onClick={() => handleView()} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17} /></span>
                                                         </span>
@@ -227,12 +237,8 @@ function Settings() {
                                     })
                                 }
                             </tbody>
-                            {/* <DialogComponent open={viewOpen} maxWidth={'xl'}>
-                                <OrderView Id={selectedIndex} onclose={handleView} />
-                            </DialogComponent> */}
                         </table>
                         <table className='  block md:hidden table rounded '>
-                        
                             <tbody className=' flex flex-col md:flex-row items-start gap-1  '>
                                 {
                                     FilteredData.map((itm, indx) => {

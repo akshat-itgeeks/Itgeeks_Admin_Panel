@@ -9,7 +9,8 @@ function InputComponent(
         name,
         type,
         label,
-        required
+        required,
+        defaultValue
     }
 ) {
     return (
@@ -20,6 +21,7 @@ function InputComponent(
                 }
                 <input
                     value={value}
+                    defaultValue={defaultValue}
                     name={name}
                     onChange={onChange}
                     className='px-2 py-2 rounded w-full border outline-none'
