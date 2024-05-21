@@ -8,10 +8,12 @@ class storeService {
     updateStoreById = (body, Id) => {
         return console.log("Updating . .")
     }
-    addStore= (data)=>
-        {
-            return console.log('Creating . .')
-        }
+    addStore = (data) => {
+        return console.log('Creating . .')
+    }
+    getStoreList = (body) => {
+        return http.post('/store/list',body)
+    }
 }
 
 export default new storeService;

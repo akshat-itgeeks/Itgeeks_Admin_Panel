@@ -13,7 +13,7 @@ function EditStore(
 ) {
     /* state for showPassword */ 
     const [showPass,setShowPass]= useState('password')
-
+    console.log(Id)
     /* validation schema */
     const validationSchema = yup.object().shape({
         name: yup.string().required('name is required').trim(),
