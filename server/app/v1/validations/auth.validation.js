@@ -30,7 +30,7 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.forgotPassword = async (req, res, next) => {
     const { error } = schema.forgotPasswordSchema.validate({
-        id: req.query.id,
+        id: req.params.id,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword
     });

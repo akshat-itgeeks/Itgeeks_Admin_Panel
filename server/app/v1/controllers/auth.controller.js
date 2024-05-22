@@ -41,7 +41,7 @@ exports.resetPassword = async (req, res) => {
         if (!emailExist) {
             return sendResponse(res, statusCode.BAD_REQUEST, false, `User ${ErrorMessage.NOT_FOUND}`);
         }
-        await service.resetPassword(email);
+        await service.resetPassword(emailExist.email, emailExist.id);
         return sendResponse(res, statusCode.OK, true, SuccessMessage.RESET_PASSWORD);
     } catch (error) {
         console.error('Error in reset password api : ', error);
@@ -53,7 +53,7 @@ exports.resetPassword = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     console.info('***************************************************Forgot Password Api************************************************');
     try {
-        const id = req.query.id;
+        const id = req.params.id;
         const password = req.body.password;
         const userExist = await service.userExistById(id);
         if (!userExist) {

@@ -52,9 +52,9 @@ exports.userExistById = async (id) => {
 }
 
 // reset user password by email
-exports.resetPassword = async (email) => {
+exports.resetPassword = async (email, id) => {
     const transporter = nodemailer.createTransport(emailConfig);
-    const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}?email=${email}`);
+    const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${id}`);
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error(`Reset Password ${ErrorMessage.EMAIL_NOT_SEND}`, error);

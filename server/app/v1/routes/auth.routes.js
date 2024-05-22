@@ -6,6 +6,6 @@ const validation = require("../validations/auth.validation.js");
 router.post('/login', validation.login, controllers.login);
 router.post('/register', validation.register, controllers.register);
 router.post('/reset-password', validation.resetPassword, controllers.resetPassword);
-router.post('/forgot-password', validation.forgotPassword, controllers.forgotPassword);
+router.post('/forgot-password/:id', validation.forgotPassword, controllers.forgotPassword);
 
 module.exports = router;
