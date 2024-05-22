@@ -8,17 +8,20 @@ function InputComponent(
         placeholder,
         name,
         type,
-        label
+        label,
+        required,
+        defaultValue
     }
 ) {
     return (
   
             <div className=' w-full relative'>
                 {
-                    label && <span className=' text-[13px]'>{label}</span>
+                    label && <span className=' font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span> } </span>
                 }
                 <input
                     value={value}
+                    defaultValue={defaultValue}
                     name={name}
                     onChange={onChange}
                     className='px-2 py-2 rounded w-full border outline-none'

@@ -12,10 +12,10 @@ class TutorialDataService {
   {
     return http.post('/auth/reset-password',data)
   }
-  forgotPassword(data,email)
+  forgotPassword(data,Id)
   {
-    console.log(email)
-    return http.post(`/auth/forgot-password?email=${email}`,data)
+    console.log(Id)
+    return http.post(`/auth/forgot-password/${Id}`,data)
   }
 
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route,  } from "react-router-dom";
+import { Routes, Route, } from "react-router-dom";
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Home from './Pages/Dashboard/Home';
@@ -12,6 +12,7 @@ import Cookies from 'js-cookie'
 import Categories from './Pages/Categories/Categories';
 import DraftOrders from './Pages/DraftOrders/DraftOrders';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
+import Settings from './Pages/Settings/Settings';
 
 
 function Routing() {
@@ -21,7 +22,7 @@ function Routing() {
     //////// Checking if user is logged or not ////////////
     console.log(userToken)
     useEffect((e) => {
-        if (!userToken ||  userToken === null) {
+        if (!userToken || userToken === null) {
             setAthenticateLogin(false)
         }
         else {
@@ -39,7 +40,7 @@ function Routing() {
     //             else {
     //                     setAthenticateLogin(true)
     //                 }
-            
+
     // },)
     // console.log(userToken)
 
@@ -47,20 +48,21 @@ function Routing() {
         <div>
             <Routes>
                 <Route path="/" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="/forgot-password" element={<ForgetPassword />} />
+                <Route path="/forgot-password/:id" element={<ForgetPassword />} />
                 <Route path="/reset-password" element={<EmailAuth />} />
-                <Route path="*" element= {<Login auth={setAthenticateLogin}/>} />
-                {/* {
-                    authenticateLogin ? */}
-                    <Route path="/dashboard" element={<Dashboard />} >
-                            <Route path='' element={<Home />} />
-                            <Route path="profile" element={<Profile />} />
-                            <Route path="customers" element={<Categories />} />
-                            <Route path="draft-orders" element={<DraftOrders/>} />
-                            {/* <Route path='home' element={<Home />} /> */}
-                            <Route path='menu' element={<Menu />} />
-                        </Route> :""
-{/* } */}
+                <Route path="*" element={<Login auth={setAthenticateLogin} />} />
+                {
+                    authenticateLogin ?
+                <Route path="/dashboard" element={<Dashboard />} >
+                    <Route path='' element={<Home />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="customers" element={<Categories />} />
+                    <Route path="draft-orders" element={<DraftOrders />} />
+                    <Route path="stores" element={<Settings />} />
+                    {/* <Route path='home' element={<Home />} /> */}
+                    <Route path='menu' element={<Menu />} />
+                </Route> :""
+                 }
 
             </Routes>
         </div>

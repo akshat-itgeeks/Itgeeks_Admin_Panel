@@ -114,7 +114,7 @@ function Login(props) {
                                         value={loginProps.values.password}
                                         name={'password'}
                                         onChange={loginProps.handleChange}
-                                        type={'text'}
+                                        type={'password'}
                                         placeholder={'Enter your password'}
                                     />
                                 </div>
