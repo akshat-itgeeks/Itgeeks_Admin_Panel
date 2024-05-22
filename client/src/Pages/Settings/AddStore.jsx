@@ -1,9 +1,13 @@
 import { Form, Formik } from 'formik';
-import React from 'react'
+import React, { useState } from 'react'
 import InputComponent from '../../components/InputComponent';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
 import storeService from '../../services/storeService';
+import { useAddNewStoreMutation } from '../../services/StoreServices';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
+import Cookies from 'js-cookie'
+
 
 function AddStore(
     {
@@ -11,34 +15,54 @@ function AddStore(
     }
 ) {
 
+    
+    const UserToken= Cookies.get("AuthLogin");
+    const [AddStore] = useAddNewStoreMutation();
+    const [showPassword, setShowPassword] = useState("password")
+
     /* validation schema */
     const validationSchema = yup.object().shape({
         name: yup.string().required('name is required').trim(),
         accessToken: yup.string().required('token is required').trim(),
-        ApiKey: yup.string().min(10, "min 10 characters").required('key is required').trim(),
-        ApiPassword: yup.string().min(5,"min 5 characters required").required('password is required').trim()
+        apiKey: yup.string().required('key is required').trim(),
+        apiPassword: yup.string().required('password is required').trim()
     });
 
     /* initial values */
     const initialValues = {
         name: '',
         accessToken: '',
-        ApiKey: '',
-        ApiPassword: ''
+        apiKey: '',
+        apiPassword: ''
     };
 
     /* handle form submit */
     const handleSubmit = (data) => {
-        data.name = data.name+".myshopify.com"
-        let ndata = data.name.replaceAll(' ','')
-        data.name= ndata;
+        data.name = data.name + ".myshopify.com"
+        let ndata = data.name.replaceAll(' ', '')
+        data.name = ndata;
         console.log(data)
 
-        storeService.addStore(data)
-        toast.success("Data created successfully")
-        setTimeout(() => {
-            close()
-        }, 300);
+        // storeService.addStore(data)
+        AddStore({ data })
+            .then((res) => {
+                if (res?.error) {
+                    console.log(res.error)
+                    toast.error(res?.error?.data?.message || "Something went wrong")
+                }
+
+                else if (res?.data) {
+                    toast.success("Store successfully Added")
+                }
+                close()
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("Something went wrong")
+            })
+
+
+
     };
 
     return (
@@ -71,7 +95,7 @@ function AddStore(
                                     />
                                     <span className=' pt-4'>
 
-                                    .myshopify.com
+                                        .myshopify.com
                                     </span>
                                 </div>
                                 <InputComponent
@@ -86,20 +110,31 @@ function AddStore(
                                     required
                                     label={'Store Api Key'}
                                     placeholder={'Store Api Key'}
-                                    name={'ApiKey'}
+                                    name={'apiKey'}
                                     onChange={settingsProps.handleChange}
-                                    value={settingsProps.values.ApiKey}
+                                    value={settingsProps.values.apiKey}
                                 />
-                                <InputComponent
-                                    required
-                                    type={'password'}
-                                    label={'Store Api Password'}
-                                    placeholder={'Store Api Key'}
-                                    name={'ApiPassword'}
-                                    onChange={settingsProps.handleChange}
-                                    value={settingsProps.values.ApiPassword}
-                                />
+                                <div className=' relative flex  items-center'>
 
+                                    <InputComponent
+                                        required
+                                        type={showPassword}
+                                        label={'Store Api Password'}
+                                        placeholder={'Store Api Key'}
+                                        name={'apiPassword'}
+                                        onChange={settingsProps.handleChange}
+                                        value={settingsProps.values.apiPassword}
+                                    />
+                                    <span className=' absolute cursor-pointer right-2 bottom-3'>
+                                        {
+                                            showPassword === "text" ?
+                                                <IoEye onClick={() => setShowPassword("password")} size={18} />
+                                                :
+                                                <IoEyeOff onClick={() => setShowPassword("text")} size={18} />
+
+                                        }
+                                    </span>
+                                </div>
                             </div>
                             <div className='flex items-center justify-center gap-3'>
                                 <button type='reset' className='text-white mt-1 border-none outline-none bg-slate-500 hover:opacity-75 rounded px-4 py-[5px]'>

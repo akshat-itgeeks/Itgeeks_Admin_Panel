@@ -26,8 +26,8 @@ function Categories() {
             <span className=' mx-auto text-[24px] font-semibold'>Customers Details</span>
             <div className=' w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 py-2 gap-x-5 gap-y-4'>
                 {
-                    UsersData?.map((itm) => {
-                        return <div className=' shadow-sm border p-1 flex flex-col justify-center items-center gap-3 px-2 py-2 w-full bg-slate-50 rounded-md '>
+                    UsersData?.map((itm,indx) => {
+                        return <div key={indx} className=' shadow-sm border p-1 flex flex-col justify-center items-center gap-3 px-2 py-2 w-full bg-slate-50 rounded-md '>
                             <img src={itm.img} className=' border object-cover p-1 rounded-lg object-center w-full h-[180px]' alt="" />
                             <div className=' w-full gap-1 flex flex-col '>
                                 <div className=' w-full flex justify-center gap-2 '>

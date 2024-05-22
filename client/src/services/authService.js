@@ -1,9 +1,6 @@
 import http from "../http-common";
 
 class TutorialDataService {
-  getAll() {
-    return http.get("/tutorials");
-  }
   login(data)
   {
     return http.post('/auth/login',data)

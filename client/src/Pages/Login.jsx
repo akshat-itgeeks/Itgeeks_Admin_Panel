@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import tutorialService from '../services/authService';
 import { useState } from 'react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useLoginMutation } from '../services/AuthServices';
 
 function Login(props) {
 
@@ -17,6 +18,8 @@ function Login(props) {
     const pass = "12345";
     const Dispatch = useDispatch();
     const [isLoading, setLoading] = useState(false)
+
+    const [LoginUser]= useLoginMutation();
 
     let { auth } = props
     let navigate = useNavigate();
@@ -42,42 +45,44 @@ function Login(props) {
         setLoading(true)
         let loginData = {email:data?.email, password:data?.password}
         console.log(data)
-        tutorialService.login(loginData)
-            .then((res) => {
-                if (res.status === 200) {
+        // tutorialService.login(loginData)
+      
+        LoginUser({data:loginData})
+              .then((res) => {
+                if (res?.data) {
                     setLoading(false)
-                    Cookies.set("AuthLogin", `userActive`, { expires: 1, path: "/" });
-                    Cookies.set("isLogged", `logged`);
+                    Cookies.set("AuthLogin", `${res?.data?.result?.accessToken}`, { expires: 1, path: "/" });
                     Dispatch(setLoginData(data))
+                    // Cookies.set("isLogged", `logged`);
                     // localStorage.setItem('IsUserLogged', JSON.stringify(data))
                     // toast.success("Login Successfull")
                     navigate('/dashboard')
                 }
-                else {
+                else if(res?.error) {
                     setLoading(false)
-                    console.log(res)
-                    toast.error(res?.data?.message)
+                    toast.error(res?.error?.data?.message)
                 }
 
             })
             .catch((err) => {
                 setLoading(false)
-                toast.error(err.response.data.message)
+                toast.error(err.response.data.message || "Internal server error")
 
             }
             )
+
     };
 
 
     /* if user is already logged in will redirect to dashboard */
     const userToken = Cookies.get("AuthLogin");
-    console.log(userToken)
     useEffect(() => {
         if (userToken || userToken != null) {
             auth(true)
             navigate('/dashboard')
         }
     }, [userToken])
+
     // const userLogin = Cookies.get("isLogged");
     // console.log(userLogin)
     // useEffect(() => {

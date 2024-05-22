@@ -50,3 +50,16 @@
     background-color: rgb(114, 109, 109);
     color: white;
   }
+
+  .noScroll::-webkit-scrollbar
+  {
+ display: block;
+ height: 3px;
+
+  }
+  .noScroll
+  {
+    overflow-x: scroll;
+    overflow-y:none;
+    scrollbar-width: 0px;
+  }

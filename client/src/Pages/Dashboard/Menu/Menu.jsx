@@ -200,7 +200,7 @@ function Menu() {
           <Tbody className="">
             {
               filteredData?.map((itm, indx) => {
-                return <Tr className=' border-b-2 gap-3  rounded-md my-1  px-2 py-3'>
+                return <Tr key={indx} className=' border-b-2 gap-3  rounded-md my-1  px-2 py-3'>
                   <Td className=' my-1  pl-3 sm:py-2 sm:w-1/3'>{itm.name} </Td>
                   <Td className=' sm:py-1 sm:w-1/3 '>{itm.email}</Td>
                   <Td className=' sm:py-1'>{itm.status}</Td>
