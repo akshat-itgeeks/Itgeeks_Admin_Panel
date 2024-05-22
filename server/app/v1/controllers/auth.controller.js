@@ -53,13 +53,13 @@ exports.resetPassword = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     console.info('***************************************************Forgot Password Api************************************************');
     try {
-        const email = req.query.email;
+        const id = req.query.id;
         const password = req.body.password;
-        const emailExist = await service.userExistByEmail(email);
-        if (!emailExist) {
+        const userExist = await service.userExistById(id);
+        if (!userExist) {
             return sendResponse(res, statusCode.BAD_REQUEST, false, `User ${ErrorMessage.NOT_FOUND}`);
         }
-        await service.forgotPassword(email, password);
+        await service.forgotPassword(id, password);
         return sendResponse(res, statusCode.OK, true, SuccessMessage.FORGOT_PASSWORD);
     } catch (error) {
         console.error('Error in forgot password api : ', error);
