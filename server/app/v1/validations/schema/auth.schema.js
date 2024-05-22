@@ -21,7 +21,16 @@ exports.resetPasswordSchema = Joi.object({
 });
 
 exports.forgotPasswordSchema = Joi.object({
-    email: emailSchema.required(),
+    id: Joi.number().required(),
     password: Joi.string().min(3).required(),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')),
+})
+
+exports.listSchema = Joi.object({
+    limit: Joi.number().optional(),
+    offset: Joi.number().optional(),
+})
+
+exports.idSchema = Joi.object({
+    id: Joi.number().required(),
 })

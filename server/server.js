@@ -28,10 +28,15 @@ db.sequelize.sync()
 //   console.log("Drop and re-sync db.");
 // });
 
+const data = () => {
+  console.log('test');
+}
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to itgeeks admin panel." });
 });
+
 
 app.use(process.env.BASE_URL, routes);
 

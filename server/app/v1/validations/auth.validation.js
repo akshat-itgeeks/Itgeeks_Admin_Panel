@@ -30,10 +30,28 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.forgotPassword = async (req, res, next) => {
     const { error } = schema.forgotPasswordSchema.validate({
-        email: req.query.email,
+        id: req.params.id,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword
     });
+    if (error) {
+        res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
+    } else {
+        next();
+    }
+};
+
+exports.list = async (req, res, next) => {
+    const { error } = schema.listSchema.validate(req.body);
+    if (error) {
+        res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
+    } else {
+        next();
+    }
+};
+
+exports.id = async (req, res, next) => {
+    const { error } = schema.idSchema.validate({ id: req.params.id });
     if (error) {
         res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
     } else {

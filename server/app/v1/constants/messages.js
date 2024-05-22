@@ -4,7 +4,11 @@ module.exports.SuccessMessage = {
   CREATED: "Created Success.",
   RESET_PASSWORD: "Check Your Mail For Reset Password Link.",
   FORGOT_PASSWORD: "Forgot Password Success.",
-  EMAIL_SEND: "Email Send Success."
+  EMAIL_SEND: "Email Send Success.",
+  LIST_FETCH: "List Fetch Success.",
+  FETCH: "Fetch Success.",
+  UPDATE: "Update Success.",
+  DELETE: "Delete Success.",
 };
 //Error messages
 module.exports.ErrorMessage = {
@@ -12,4 +16,7 @@ module.exports.ErrorMessage = {
   INVALID_CREDENTIAL: "Invalid Credential",
   NOT_FOUND: "Not Found",
   EMAIL_NOT_SEND: "Error Sending Email :",
+  ALREADY_EXIST: "Already Exist.",
+  UNAUTHORIZED: "Token Not Exist.",
+  INVALID_TOKEN: "Invalid Token.",
 };

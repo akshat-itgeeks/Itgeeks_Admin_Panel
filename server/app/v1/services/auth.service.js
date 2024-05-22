@@ -45,10 +45,16 @@ exports.userExistByEmail = async (email) => {
     return userDetails;
 }
 
+// check user exist by id
+exports.userExistById = async (id) => {
+    const userDetails = await Users.findOne({ where: { id } });
+    return userDetails;
+}
+
 // reset user password by email
-exports.resetPassword = async (email) => {
+exports.resetPassword = async (email, id) => {
     const transporter = nodemailer.createTransport(emailConfig);
-    const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}?email=${email}`);
+    const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${id}`);
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error(`Reset Password ${ErrorMessage.EMAIL_NOT_SEND}`, error);
@@ -60,8 +66,8 @@ exports.resetPassword = async (email) => {
 }
 
 // forgot user password by email
-exports.forgotPassword = async (email, password) => {
+exports.forgotPassword = async (id, password) => {
     const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
-    await Users.update({ password: hashPassword }, { where: { email } });
+    await Users.update({ password: hashPassword }, { where: { id } });
     return true;
 }
