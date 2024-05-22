@@ -9,7 +9,7 @@ class storeService {
         return console.log("Updating . .")
     }
     addStore = (data) => {
-        return console.log('Creating . .')
+        return http.post('/store',data)
     }
     getStoreList = (body) => {
         return http.post('/store/list',body)

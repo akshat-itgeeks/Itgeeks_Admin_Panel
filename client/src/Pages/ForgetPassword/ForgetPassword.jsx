@@ -12,8 +12,9 @@ function ForgetPassword() {
     const [UserData, setUserData] = useState('')
 
     /* code for getting email from url */
-    const urlParams = new URLSearchParams(window.location.search);
-    const  paramEmail = urlParams.get('email');
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const  paramEmail = urlParams.get('email');
+    const paramEmail= useParams()
     console.log(paramEmail);
 
     /* form initialValues */
@@ -33,7 +34,7 @@ function ForgetPassword() {
     /* handling form submit */
     const handleSubmit = (data,{ resetForm}) => {
         setUserData(data)
-        authService.forgotPassword(data,paramEmail)
+        authService.forgotPassword(data,paramEmail.id)
         .then((res)=>res.data)
         .then((data)=>
         {

@@ -29,7 +29,7 @@ function Settings() {
     const [Page, setcurrentPage] = useState(1);
     const DataPerPage = 2;
     const [count, setCount] = useState(0)
-    const [filteredData,setFilteredData]= useState([])
+    const [FilteredData, setFilteredDatF] = useState([])
     /*  States for search filter  */
     const [searchValue, setSearchValue] = useState('')
 
@@ -42,7 +42,7 @@ function Settings() {
 
     /*  fetching list  */
     useEffect(() => {
-      
+
         let offset = (Page - 1) * DataPerPage;
 
         storeService.getStoreList({
@@ -52,14 +52,12 @@ function Settings() {
             .then(res => res?.data)
             .then((data) => {
                 setUserData(data?.result.rows)
-                console.log(data?.result?.count)
-                let cunt = Math?.ceil(data.result?.count / DataPerPage);
+                let cunt = Math?.ceil(data.result.count / DataPerPage);
                 setCount(cunt)
             })
+            // setFilteredDatF(newData)
 
-        // setFilteredData(newData)
-
-    }, [Page,searchValue])
+    }, [Page, searchValue])
 
 
     useEffect(() => {
@@ -95,7 +93,6 @@ function Settings() {
     /*  functions for handling delete  */
     const handleDeleteYes = () => {
         setTimeout(() => {
-
             toast.success("Deleted successfully")
         }, 300);
     }
@@ -171,16 +168,16 @@ function Settings() {
             weight: "74kg",
         },
     ];
-    useEffect(()=>
-    {
+    useEffect(() => {
         let filteredData = UserData.filter((itm) => {
             if (itm.name.toLowerCase().includes(searchValue.trim())) {
                 return itm
             }
         })
-        setFilteredData(filteredData)
+        setFilteredDatF(filteredData)
 
-    },[searchValue])
+
+    }, [searchValue, UserData,Page])
 
     return (
         <div className=' overflow-y-scroll h-full  w-full px-3 py-4 w-full flex flex-col gap-4'>
@@ -231,9 +228,9 @@ function Settings() {
                         </thead>
                         <tbody className=' flex flex-col gap-2 pt-2  '>
                             {
-                                UserData?.length <= 0 ?
+                                FilteredData?.length <= 0 ?
                                     "No data" :
-                                    UserData?.map((itm, indx) => {
+                                    FilteredData?.map((itm, indx) => {
                                         return <div key={indx} className=' w-full   select-none border-zinc-400 flex justify-between border   rounded-md  px-1 py-3'>
                                             <span className=' w-full text-[14.5px] flex items-center self-center pl-4'>{itm?.name} </span>
                                             <span className=' w-full text-[14.5px]'>{itm?.accessToken} </span>

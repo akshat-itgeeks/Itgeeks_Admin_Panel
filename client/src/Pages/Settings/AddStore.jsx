@@ -34,7 +34,7 @@ function AddStore(
         data.name= ndata;
         console.log(data)
 
-        storeService.addStore()
+        storeService.addStore(data)
         toast.success("Data created successfully")
         setTimeout(() => {
             close()
