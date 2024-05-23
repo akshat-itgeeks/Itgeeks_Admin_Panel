@@ -3,15 +3,16 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import InputComponent from '../../components/InputComponent';
-import tutorialService from '../../services/authService';
 import toast from 'react-hot-toast'
+import { useResetPasswordMutation } from '../../services/AuthServices';
 
 function EmailAuth() {
 
     let navigate = useNavigate();
     const [UserData, setUserData] = useState('');
     const [linksend,setLinkSend]= useState(false);
-    const [loading,setLoading]= useState(false)
+    const [loading,setLoading]= useState(false);
+    const [resetPassword]= useResetPasswordMutation()
 
 
     /* form initialValues */
@@ -30,15 +31,15 @@ function EmailAuth() {
     const handleSubmit = (data,{ resetForm } ) => {
         setLoading(true)
         setUserData(data)
-        tutorialService.resetPassword(data)
-        .then((res)=> res.data)
+        // tutorialService.resetPassword(data)
+        resetPassword({data})
         .then((dta)=>
         {
-            if(dta?.status)
+            if(dta?.data)
                 {
                     setTimeout(() => {
                         
-                        toast.success(dta?.message)
+                        toast.success(dta?.data?.message)
                         setLinkSend(true);
                         resetForm();
                     }, 100);
@@ -46,7 +47,7 @@ function EmailAuth() {
                         navigate('/')
                     }, 600);
                 }
-                else
+                else if(data.error)
                 {
                     toast.error('something went wrong')
                     setLinkSend(false)

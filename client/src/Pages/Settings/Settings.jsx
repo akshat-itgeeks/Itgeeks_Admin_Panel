@@ -12,7 +12,6 @@ import InputComponent from '../../components/InputComponent';
 import { FaSearch } from 'react-icons/fa';
 import { Pagination } from '@mui/material';
 import { useDeleteStoreMutation, useGetStoreListQuery } from '../../services/StoreServices';
-import storeService from '../../services/storeService';
 // import {DataTable} from 'primereact/datatable'
 // import {Column} from 'primereact/column'
 // import DataTable from "react-data-table-component";
@@ -28,9 +27,9 @@ function Settings() {
     /*    States for handling Table Pagination    */
     const [UserData, setUserData] = useState([])
     const [Page, setcurrentPage] = useState(1);
-    const DataPerPage = 3;
+    const DataPerPage = 5;
     const [count, setCount] = useState(0)
-    const [FilteredData, setFilteredDatF] = useState([])
+    const [FilteredData, setFilteredData] = useState([])
     const [loading, setLoading] = useState([])
     const [viewOpen, setViewOpen] = useState(false);
     const [actionOpen, setActionOpen] = useState(false)
@@ -55,8 +54,10 @@ function Settings() {
         else {
             setUserData(ListData?.result?.rows);
             setCount(  Math.ceil( ListData?.result?.count/DataPerPage))
-            //   setFilteredData(AllDataList)
-            setLoading(false)
+            setTimeout(() => {
+                
+                setLoading(false)
+            },200);
         }
 
     }, [ListData, isListFetching, isListLoading])
@@ -173,18 +174,19 @@ function Settings() {
             weight: "74kg",
         },
     ];
-    // useEffect(() => {
-    //     let filteredData = UserData.filter((itm) => {
-    //         if (itm.name.toLowerCase().includes(searchValue.trim())) {
-    //             return itm
-    //         }
-    //     })
-    //     setFilteredData(filteredData)
+    useEffect(() => {
+        let filteredData = UserData.filter((itm) => {
+            if (itm.name.toLowerCase().includes(searchValue.trim())) {
+                return itm
+            }
+        })
+        console.log(filteredData)
+        setFilteredData(filteredData)
 
-    // }, [searchValue, UserData, Page])
+    }, [searchValue, UserData])
 
     return (
-        <div className=' overflow-y-scroll h-full  w-full px-3 py-4 w-full flex flex-col gap-4'>
+        <div className=' overflow-y-scroll h-full  w-full px-3 py-4  flex flex-col gap-4'>
             <div className=' w-full flex justify-between '>
                 <div>
                     <span className=' font-semibold text-xl'>Stores</span>
@@ -222,7 +224,7 @@ function Settings() {
                 {/* <DataTable responsive pagination  highlightOnHover columns={columns}  data={rows}/> */}
 
                 <div className='  w-full flex flex-col gap-5 items-center'>
-                    <div className=' hidden md:block  table rounded '>
+                    <div className=' hidden  md:table rounded w-full '>
                         <div className='head divide-x-2 bg-slate-500 text-white rounded border-r border-l flex justify-between'>
                             <div className=' w-full font-medium  text-[14px] self-center py-3 pl-3 uppercase' >Store name</div>
                             <div className=' w-full font-medium text-[14px] self-center py-3 pl-3  uppercase'>Api access token</div>
@@ -234,8 +236,8 @@ function Settings() {
                             {
                                 loading ?
                                     <div className=' w-full flex flex-col gap-2'>
-                                        {Array(2).fill(0).map((itm) => {
-                                            return <div className=' border h-12 rounded w-full bg-slate-200 animate-pulse'></div>
+                                        {Array(5).fill(0).map((itm) => {
+                                            return <div className=' border h-16 rounded w-full bg-slate-200 animate-pulse'></div>
                                         })}
                                     </div>
                                     :
@@ -244,7 +246,7 @@ function Settings() {
                                         UserData?.map((itm, indx) => {
                                             return <div key={indx} className=' w-full  gap-1  border-zinc-400  flex justify-between border   rounded-md  px-1 py-3'>
                                                 <span className=' w-[20%]  text-[14.5px] flex items-center   h-6 pl-4  '> <span className=' '>{itm?.name}</span> </span>
-                                                <span className='  w-[20%] noScroll flex self-center h-6 md:h-8 py-0  text-[14.5px] pl-2'>{itm?.accessToken}</span>
+                                                <span className='  w-[20%] noScroll flex self-center h-6 md:h-7 py-0  text-[14.2px] pl-2'>{itm?.accessToken}</span>
                                                 <span className=' w-[20%] pl-4 text-[14.5px] h-6'>{itm?.apiKey}</span>
                                                 <span className=' w-[21%] pl-4 text-[14.5px] h-6'>{itm?.apiPassword}</span>
                                                 <span className=' w-[12%] pl-3 text-[14.5px] h-6 relative '> <span className=' flex items-center pt-1 w-1/4 cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx, itm?.id) }}><BsThreeDotsVertical /></span>
@@ -264,7 +266,7 @@ function Settings() {
                             }
                         </div>
                     </div>
-                    <div className='  block md:hidden table rounded '>
+                    <div className='   md:hidden table rounded '>
                         <div className=' flex flex-col md:flex-row items-start gap-1  '>
                             {
                                 UserData?.map((itm, indx) => {
@@ -273,7 +275,7 @@ function Settings() {
                                         <span className=' w-full text-[13px]  flex justify-between'> <span className=' w-full flex-wrap font-semibold'>Api access toekn : </span> <span className=' flex-wrap text-wrap'>{itm.accessToken}</span> </span>
                                         <span className=' w-full  text-[13px] flex justify-between'><span className=' font-semibold'>Api store Key :</span> {itm.apiKey}</span>
                                         <span className=' w-full  text-[13px] flex justify-between'><span className=' font-semibold'>Api store pass </span>{itm.apiPassword}</span>
-                                        <span className=' w-full  text-[13px] justify-between relative  flex'> <span className=' font-semibold'>Actions  </span> <span className=' pt-1 cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx) }}><BsThreeDotsVertical /></span>
+                                        <span className=' w-full  text-[13px] justify-between relative  flex'> <span className=' font-semibold'>Actions  </span> <span className=' pt-1 cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx,itm?.id) }}><BsThreeDotsVertical /></span>
                                             {
                                                 actionIndex[indx] === true ?
                                                     <>  <span className=' select-none rounded-full lg:right-[80px] w-[130px] divide-x-2 2xl:right-[100px]  gap-1  py-1 px-2 shadow  right-5 bottom-0 bg-white absolute flex  items-center justify-between'>

@@ -51,18 +51,18 @@ function Routing() {
                 <Route path="/forgot-password/:id" element={<ForgetPassword />} />
                 <Route path="/reset-password" element={<EmailAuth />} />
                 <Route path="*" element={<Login auth={setAthenticateLogin} />} />
-                {/* {
-                    authenticateLogin ? */}
-                <Route path="/dashboard" element={<Dashboard />} >
-                    <Route path='' element={<Home />} />
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="customers" element={<Categories />} />
-                    <Route path="draft-orders" element={<DraftOrders />} />
-                    <Route path="stores" element={<Settings />} />
-                    {/* <Route path='home' element={<Home />} /> */}
-                    <Route path='menu' element={<Menu />} />
-                </Route> :""
-                 {/* } */}
+                {
+                    authenticateLogin ?
+                        <Route path="/dashboard" element={<Dashboard />} >
+                            <Route path='' element={<Home />} />
+                            <Route path="profile" element={<Profile />} />
+                            <Route path="customers" element={<Categories />} />
+                            <Route path="draft-orders" element={<DraftOrders />} />
+                            <Route path="stores" element={<Settings />} />
+                            {/* <Route path='home' element={<Home />} /> */}
+                            <Route path='menu' element={<Menu />} />
+                        </Route> : ""
+                }
 
             </Routes>
         </div>

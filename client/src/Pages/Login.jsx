@@ -7,7 +7,6 @@ import InputComponent from '../components/InputComponent';
 import Cookies from 'js-cookie'
 import { setLoginData } from '../Redux/Slices/loginSlice';
 import { useDispatch } from 'react-redux';
-import tutorialService from '../services/authService';
 import { useState } from 'react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useLoginMutation } from '../services/AuthServices';

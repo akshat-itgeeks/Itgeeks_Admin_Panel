@@ -7,6 +7,7 @@ const AuthServices = CreateApi.injectEndpoints(
 
                 Login:builder.mutation(
                     {
+                        invalidatesTags:["auth"],
                         query:({data})=>(
                             {
                                 url:'/auth/login',
@@ -17,6 +18,7 @@ const AuthServices = CreateApi.injectEndpoints(
                     }),
                 ResetPassword:builder.mutation(
                     {
+                        invalidatesTags:["auth"],
                         query:({data})=>(
                             {
                                 url:'/auth/reset-password',
@@ -24,11 +26,22 @@ const AuthServices = CreateApi.injectEndpoints(
                                 body:data
                             }
                         )
-                    })
+                    }),
+                    ForgotPassword:builder.mutation(
+                        {
+                            invalidatesTags:["auth"],
+                            query:({data,Id})=>(
+                                {
+                                    url:`/auth/forgot-password/${Id}`,
+                                    method:"POST",
+                                    body:data
+                                }
+                            )
+                        })
 
             }
         )
     }
 )
 
-export const {useLoginMutation,useResetPasswordMutation}= AuthServices;
+export const {useLoginMutation,useResetPasswordMutation,useForgotPasswordMutation}= AuthServices;

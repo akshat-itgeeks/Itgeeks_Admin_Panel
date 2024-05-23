@@ -3,8 +3,8 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import {  useNavigate, useParams } from 'react-router-dom';
 import InputComponent from '../../components/InputComponent';
-import authService from '../../services/authService';
 import toast from 'react-hot-toast';
+import { useForgotPasswordMutation } from '../../services/AuthServices';
 
 function ForgetPassword() {
 
@@ -13,9 +13,10 @@ function ForgetPassword() {
 
     /* code for getting email from url */
     // const urlParams = new URLSearchParams(window.location.search);
-    // const  paramEmail = urlParams.get('email');
+
     const paramEmail= useParams()
     console.log(paramEmail);
+    const [forgotPassword]= useForgotPasswordMutation()
 
     /* form initialValues */
     const [initialValues, setInitialValues] = useState({
@@ -34,18 +35,18 @@ function ForgetPassword() {
     /* handling form submit */
     const handleSubmit = (data,{ resetForm}) => {
         setUserData(data)
-        authService.forgotPassword(data,paramEmail.id)
-        .then((res)=>res.data)
-        .then((data)=>
+        // authService.forgotPassword(data,paramEmail.id)
+        forgotPassword({data,Id:paramEmail?.id})
+        .then((res)=>
         {
-            if(data.status)
+            if(res?.data)
                 {
-
-                    toast.success(data.message)
+                    console.log(res?.data)
+                    toast.success(res?.data?.message)
                     resetForm();
                     navigate('/')
                 }
-                else
+                else if(res?.error)
                 {
                     toast.error('Something went wrong')
                 }

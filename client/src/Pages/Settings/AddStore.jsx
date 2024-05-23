@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import InputComponent from '../../components/InputComponent';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
-import storeService from '../../services/storeService';
 import { useAddNewStoreMutation } from '../../services/StoreServices';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import Cookies from 'js-cookie'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 
 function AddStore(
@@ -18,7 +18,8 @@ function AddStore(
     
     const UserToken= Cookies.get("AuthLogin");
     const [AddStore] = useAddNewStoreMutation();
-    const [showPassword, setShowPassword] = useState("password")
+    const [showPassword, setShowPassword] = useState("password");
+    const [loading,setLoading]= useState(false)
 
     /* validation schema */
     const validationSchema = yup.object().shape({
@@ -42,7 +43,7 @@ function AddStore(
         let ndata = data.name.replaceAll(' ', '')
         data.name = ndata;
         console.log(data)
-
+        setLoading(true)
         // storeService.addStore(data)
         AddStore({ data })
             .then((res) => {
@@ -54,11 +55,13 @@ function AddStore(
                 else if (res?.data) {
                     toast.success("Store successfully Added")
                 }
-                close()
+                close();
+                setLoading(false)
             })
             .catch((err) => {
                 console.log(err)
                 toast.error("Something went wrong")
+                setLoading(false)
             })
 
 
@@ -137,11 +140,11 @@ function AddStore(
                                 </div>
                             </div>
                             <div className='flex items-center justify-center gap-3'>
-                                <button type='reset' className='text-white mt-1 border-none outline-none bg-slate-500 hover:opacity-75 rounded px-4 py-[5px]'>
+                                <button type='reset' className='text-white mt-1 border-none select-none outline-none bg-slate-500 hover:opacity-75 rounded px-4 py-[5px]'>
                                     <span className='flex w-full items-center justify-center py-1'>Reset</span>
                                 </button>
-                                <button type='submit' className='mt-1 border-none outline-none bg-slate-500 text-white hover:opacity-75 rounded px-4 py-[5px]'>
-                                    <span className='flex w-full items-center px-2 justify-center py-1'>Create</span>
+                                <button type='submit' className='mt-1 border-none outline-none select-none bg-slate-500 text-white hover:opacity-75 rounded px-4 py-[5px]'>
+                                    <span className='flex w-full items-center px-2 justify-center py-1'> { loading?<span className=' py-1 px-[10px] animate-spin'><AiOutlineLoading3Quarters/></span>:<span>Create</span>}</span>
                                 </button>
                             </div>
                         </Form>

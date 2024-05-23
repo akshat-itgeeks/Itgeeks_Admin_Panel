@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import InputComponent from '../../components/InputComponent';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
-import storeService from '../../services/storeService';
 import { useGetStoreByIdQuery, useUpdateStoreByIdMutation } from '../../services/StoreServices';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
